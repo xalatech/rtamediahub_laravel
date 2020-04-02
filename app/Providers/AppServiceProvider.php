@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('layouts.app', function ($view) {
+            $view->with('categories', \App\Category::all());
+        });
+
+        View::composer('layouts.admin', function ($view) {
+            $view->with('categories', \App\Category::all());
+        });
     }
 }

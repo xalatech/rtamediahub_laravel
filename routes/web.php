@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+})->middleware('auth');
+
+Route::resource('categories', 'CategoryController');
+Route::resource('posts', 'PostController');
+Route::get('/roles', 'PermissionController@Permission');
+
+Route::group(['middleware' => 'role:manager'], function () {
+    Route::get('/admin', 'AdminController@index')->name('admin');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
