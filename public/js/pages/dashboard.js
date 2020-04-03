@@ -5,27 +5,30 @@
  *      This is a demo file used only for the main dashboard (index.html)
  **/
 
+
 function submitFilter(id) {
     changeCategory(id);
 
     if (id === 0) {
-        $("#id_category").val('').change();
+        $("#id_category")
+            .val("")
+            .change();
     } else {
-        $("#id_category").val(id).change();
+        $("#id_category")
+            .val(id)
+            .change();
     }
-
-
 }
 
 function changeCategory(id) {
     $(".categories").each(function () {
-        $(this).removeClass('active');
-    })
+        $(this).removeClass("active");
+    });
 
-
-    $("a.category-" + id).addClass('active');
-
+    $("a.category-" + id).addClass("active");
 }
+
+
 
 $(function () {
 
@@ -34,31 +37,59 @@ $(function () {
 
     $("#id_category").change(function () {
         categoryId = $(this).val();
-        search(categoryId);
+        search();
     });
 
-    function search(categoryId, startDate, endDate, keyword) {
+    $("#keywordSearch").keydown(function () {
+        keyword = $(this).val();
+        search();
+    });
+
+    function search() {
         var url = "search";
         changeCategory(categoryId);
-        if (categoryId == 0 || categoryId == '0') categoryId = '';
+        if (categoryId == 0 || categoryId == "0") categoryId = "";
+
+        console.log(startDate);
 
         $.ajax({
             url: url,
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
             data: {
-                'category': categoryId,
-                'startDate': startDate,
-                'endDate': endDate,
-                'keyword': keyword
+                category: categoryId,
+                startDate: startDate,
+                endDate: endDate,
+                keyword: keyword
             },
             success: function (data) {
                 $("#posts").html(data);
             }
         });
     }
+    // Make the dashboard widgets sortable Using jquery UI
+    $('.connectedSortable').sortable({
+        placeholder: 'sort-highlight',
+        connectWith: '.connectedSortable',
+        handle: '.card-header, .nav-tabs',
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    })
+    $('.connectedSortable .card-header, .connectedSortable .nav-tabs-custom').css('cursor', 'move')
+
+    // jQuery UI sortable for the todo list
+    $('.todo-list').sortable({
+        placeholder: 'sort-highlight',
+        handle: '.handle',
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    })
 
     // bootstrap WYSIHTML5 - text editor
     $('.textarea').summernote({
-        height: 300
+        height: 250
     });
 
     $('.daterange').daterangepicker({
@@ -75,7 +106,7 @@ $(function () {
     }, function (start, end) {
         startDate = start.format("YYYY-MM-DD HH:mm:ss");
         endDate = end.format("YYYY-MM-DD HH:mm:ss");
-        search(categoryId, startDate, endDate, keyword);
+        search();
     })
 
     /* jQueryKnob */

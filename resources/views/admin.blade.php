@@ -1,9 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+ <section class="content">
+    <div class="container-fluid">
+      <!-- Small boxes (Stat box) -->
+        <section class="col-lg-12 connectedSortable">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -18,5 +19,5 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection

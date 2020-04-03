@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.nav-sidebar .nav-item>.nav-link {
+    margin-bottom: 0.8rem;
+    font-size: 18px;
+    text-transform: uppercase;
+}

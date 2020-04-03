@@ -58,16 +58,16 @@ class PermissionController extends Controller
         $manager_perm_category = Permission::where('slug', 'create-category')->first();
 
         $developer = new User();
-        $developer->name = 'Mahedi Hasan';
-        $developer->email = 'mahedi@gmail.com';
+        $developer->name = 'Ibrahim';
+        $developer->email = 'ibrahim@xala.no';
         $developer->password = bcrypt('secrettt');
         $developer->save();
         $developer->roles()->attach($dev_role);
         $developer->permissions()->attach($dev_perm);
 
         $manager = new User();
-        $manager->name = 'Hafizul Islam';
-        $manager->email = 'hafiz@gmail.com';
+        $manager->name = 'RTA';
+        $manager->email = 'rta@rta.af';
         $manager->password = bcrypt('secrettt');
         $manager->save();
         $manager->roles()->attach($manager_role);

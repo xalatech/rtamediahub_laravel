@@ -15,4 +15,23 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    protected $fillable = [
+        'headline',
+        'description',
+        'slug',
+        'upload_url',
+        'category_id',
+        'thumb_url',
+        'tags',
+    ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($post) {
+            $post->user_id = auth()->user()->id;
+        });
+    }
 }

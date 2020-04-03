@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Post;
 use Cache;
 
 class HomeController extends Controller
@@ -25,9 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        //$categories->orderBy('sort_order', 'asc');
+        $categories = Category::query()->where('published', true)->orderBy('sort_order', 'asc')->get();
+        $posts = Post::query()->where('published', true)->orderBy('created_at', 'desc')->get();
 
-        return view('home', $categories);
+        $data['categories'] = $categories;
+        $data['posts'] = $posts;
+
+        return view('home', $data);
     }
 }

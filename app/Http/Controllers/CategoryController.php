@@ -12,6 +12,66 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
+    public function Seed(Request $request)
+    {
+        if ($request->user()->can('create-category')) {
+
+            $categories = Category::all();
+            foreach ($categories as $cat) {
+                echo $cat;
+                $cat->delete();
+            }
+
+            $category = new Category();
+            $category->name = 'Breaking news';
+            $category->description = 'Breaking related news';
+            $category->url = 'breaking-news';
+            $category->sort_order = 0;
+            $category->icon = 'free-code-camp';
+
+            $category->save();
+
+            $category = new Category();
+            $category->name = 'Sports news';
+            $category->description = 'Sports related news';
+            $category->url = 'sport-news';
+            $category->sort_order = 1;
+            $category->icon = 'volleyball-ball';
+
+            $category->save();
+
+            $category = new Category();
+            $category->name = 'Corona news';
+            $category->description = 'Corona related news';
+            $category->url = 'corona-news';
+            $category->sort_order = 2;
+            $category->icon = 'syringe';
+
+            $category->save();
+
+            $category = new Category();
+            $category->name = 'Business news';
+            $category->description = 'Business related news';
+            $category->url = 'business-news';
+            $category->sort_order = 3;
+            $category->icon = 'chart-bar';
+
+            $category->save();
+
+            $category = new Category();
+            $category->name = 'Technology news';
+            $category->description = 'Technology related news';
+            $category->url = 'tech-news';
+            $category->sort_order = 4;
+            $category->icon = 'sim-card';
+
+            $category->save();
+        }
+
+
+        return redirect()->back();
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -15,36 +15,46 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/summernote/summernote-bs4.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
    
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+   <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css')}}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css')}}">
+  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('plugins/moment/moment.min.js')}}"></script>
+    <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+    
+    <script src="{{ asset('js/pages/dashboard.js')}}"></script>
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top mb-3 shadow-sm">
             <div class="container">
-                <form class="form-inline ml-3 mr-3">
-                    <div class="input-group input-group-sm">
-                      <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                      <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </div>
+                    <div class="input-group input-group-sm col-md-4 ml-5">
+                      <input class="form-control form-control-navbar" type="search" id="keywordSearch" placeholder="Search" aria-label="Search">
                     </div>
-                  </form>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -71,6 +81,9 @@
                                 </li>
                             @endif
                         @else
+                        <a href="{{ route('home') }}" class="btn btn-warning mr-3">Switch to main site</a>
+                            
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -100,29 +113,75 @@
             
               <span class="brand-text font-weight-light">Mediahub</span>
             </a>
-              <!-- Sidebar Menu -->
-              <nav class="mt-2">
+               <!-- Sidebar Menu -->
+               <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <!-- Add icons to the links using the .nav-icon class
                        with font-awesome or any other icon font library -->
                        <li class="nav-item">
-                      <a href="#" onclick="submitFilter(0)" class="nav-link categories category-0 active" data-id="0" title="Home">
+                      <a href="/admin" class="nav-link active" title="Home">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                           Home
                         </p>
                       </a>
                     </li>  
-                    @foreach ($categories as $menu)
                     <li class="nav-item">
-                      <a href="#" onclick="submitFilter({{$menu->id}})" data-id="{{$menu->id}}" class="nav-link categories category-{{$menu->id}} " title="{{$menu->description}}">
-                        <i class="nav-icon fas {{$menu->icon}}"></i>
+                      <a href="/admin/users" class="nav-link" title="Users">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                          {{$menu->name}}
+                          Users
                         </p>
                       </a>
                     </li>  
-                    @endforeach
+                    <li class="nav-item">
+                      <a href="/admin/roles" class="nav-link" title="Roles">
+                        <i class="nav-icon fas fa-lock"></i>
+                        <p>
+                          User roles
+                        </p>
+                      </a>
+                    </li>  
+                    <li class="nav-item">
+                      <a href="/admin/permissions" class="nav-link" title="Permissions">
+                        <i class="nav-icon fas fa-key"></i>
+                        <p>
+                          Permissions
+                        </p>
+                      </a>
+                    </li>  
+                    <li class="nav-item">
+                      <a href="/admin/categories" class="nav-link" title="Categories">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                          Categories
+                        </p>
+                      </a>
+                    </li>  
+                    <li class="nav-item">
+                      <a href="/admin/posts" class="nav-link" title="Posts">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                          Posts
+                        </p>
+                      </a>
+                    </li>  
+                    <li class="nav-item">
+                      <a href="/admin/images" class="nav-link" title="Images">
+                        <i class="nav-icon fas fa-image"></i>
+                        <p>
+                          Images
+                        </p>
+                      </a>
+                    </li>  
+                    <li class="nav-item">
+                      <a href="/admin/videos" class="nav-link" title="Videos">
+                        <i class="nav-icon fas fa-video"></i>
+                        <p>
+                          Videos
+                        </p>
+                      </a>
+                    </li>  
         
                   
                 </ul>
@@ -132,29 +191,12 @@
             <!-- /.sidebar -->
           </aside>
      
-          <main class="content-wrapper p-3">
-
+          <main class="content-wrapper">
             @yield('content')
         </main>
     </div>
 </div>
 
-<!-- Scripts -->
-
-<!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-
-<!-- AdminLTE App -->
-<script src="{{ asset('js/adminlte.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-
-<script src="{{ asset('js/app.js') }}" defer></script>
 
 </body>
 </html>

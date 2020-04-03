@@ -21,8 +21,12 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
+use Intervention\Image\ImageManager;
+
+// create an image manager instance with favored driver
+$manager = new ImageManager(array('driver' => 'imagick'));
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights
@@ -35,7 +39,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
