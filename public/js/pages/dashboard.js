@@ -125,4 +125,20 @@ $(function () {
 
 
 
+    var underlineMenuItems = document.querySelectorAll(".categories");
+    underlineMenuItems[0].classList.add("active");
+    underlineMenuItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+            underlineMenuItems.forEach(function (item) {
+                return item.classList.remove("active");
+            });
+            item.classList.add("active");
+        });
+    });
+
+
+    $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 })

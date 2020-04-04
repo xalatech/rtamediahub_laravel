@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{ asset('plugins/lightbox/ekko-lightbox.css')}}">
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
@@ -42,6 +43,7 @@
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <script src="{{ asset('plugins/lightbox/ekko-lightbox.min.js')}}"></script>
     
     <script src="{{ asset('js/pages/dashboard.js')}}"></script>
 
@@ -50,11 +52,15 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top mb-3 shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top mb-3 shadow-sm">
             <div class="container">
-                    <div class="input-group input-group-sm col-md-4 ml-5">
-                      <input class="form-control form-control-navbar" type="search" id="keywordSearch" placeholder="Search" aria-label="Search">
-                    </div>
+                 <!-- Brand Logo -->
+            <div class="justify-content-center">
+            <a href="/" class="brand-link">
+              <img src="{{ asset('images/rtalogo.png') }}" class="brand-image img-circle elevation-3" width="80" alt="rta"  style="opacity: .8" />
+            Media Hub
+          </a>
+            </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -109,7 +115,7 @@
                 </div>
             </div>
         </nav>
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+       {{--  <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/" class="brand-link">
                 <img src="{{ asset('images/rtalogo.png') }}" class="brand-image img-circle elevation-3" width="50" alt="rta"  style="opacity: .8" />
@@ -146,11 +152,77 @@
               <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
-          </aside>
+          </aside> --}}
      
+          <div class="jumbotron jumbotron-fluid">
+            <div class="row justify-content-center">
+              <form method="post" action="" id="search-box" class="col-md-4"> 
+                <i class="fa fa-globe"></i>
+                <input type="text" placeholder="Type your keyword here..." >
+                 <span class="inline-search">
+                 <button id="search-btn" type="submit" value="Search" ><i class="fa fa-search"></i></button>
+                </span>
+                </form>
+                <a class="btn btn-success col-md-2 new-media" href="{{ route('add_post') }}">Add new Media</a>
+            </div>
+          </div>
+          <nav class="navbar navbar-expand navbar-light justify-content-center landing-top-menu site-nav">
+            <!-- Left navbar links -->
+            
+            <ul class="navbar-nav">
+              <li class="nav-item landing-top-menu__item categories category-0 active" data-id="0">
+                <a href="{{ route('home') }}" class="nav-link" title="Home">
+                  <i class="nav-icon fas fa-home"></i>
+                    Latest
+                </a>
+              </li>  
+              @foreach ($categories as $menu)
+              <li class="nav-item landing-top-menu__item categories category-{{$menu->id}} " data-id="{{$menu->id}}">
+                <a href="#" onclick="submitFilter({{$menu->id}})" class="nav-link" title="{{$menu->description}}">
+                  <i class="nav-icon fas fa-{{$menu->icon}}"></i>
+                    {{$menu->name}}
+                </a>
+              </li>  
+              @endforeach
+
+             
+            </ul>
+          {{--   <li>
+            <button type="button" class="btn btn-secondary daterange ml-3 mt-1" data-toggle="tooltip" id="reportrange" title="Date range">
+              <i class="far fa-calendar-alt"></i>  <span class="ml-2">Filter by date</span>
+           </button>
+            </li> --}}
+          </nav>
+
           <main class="content-wrapper">
             @yield('content')
         </main>
+        <footer>
+		
+          <div class="footer-limiter">
+      
+            <div class="footer-right">
+      
+              <a href="#"><i class="fab fa-facebook"></i></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+      
+            </div>
+      
+            
+            <div class="d-flex">
+            <div class="footer-left">
+              <img src="{{ asset('images/rtalogo.png') }}" class="brand-image img-circle elevation-3" width="80" alt="rta"  style="opacity: .8" />
+            </div>
+            <div class="footer-left ml-3">
+              <p class="footer-links mt-2">RTA Media Hub</p>
+              <p>RTA © 2020</p>
+              </div>
+            </div>
+          </div>
+      
+        </footer>
     </div>
 </div>
 
