@@ -10,70 +10,106 @@ use App\User;
 
 class PermissionController extends Controller
 {
-    public function Permission()
+    public function Permission(Request $request)
     {
-        $dev_permission = Permission::where('slug', 'create-posts')->first();
-        $creae_category_permission = Permission::where('slug', 'create-category')->first();
-        $manager_permission = Permission::where('slug', 'edit-users')->first();
+        if ($request->user()->hasRole('administrator')) {
 
-        //RoleTableSeeder.php
-        $dev_role = new Role();
-        $dev_role->slug = 'developer';
-        $dev_role->name = 'Front-end Developer';
-        $dev_role->save();
-        $dev_role->permissions()->attach($dev_permission);
+            $users = User::all();
+            foreach ($users as $user) {
+                $user->delete();
+            }
 
-        $manager_role = new Role();
-        $manager_role->slug = 'manager';
-        $manager_role->name = 'Assistant Manager';
-        $manager_role->save();
-        $manager_role->permissions()->attach($manager_permission);
-        $manager_role->permissions()->attach($creae_category_permission);
+            $roles = Role::all();
+            foreach ($roles as $role) {
+                $role->delete();
+            }
 
-        $dev_role = Role::where('slug', 'developer')->first();
-        $manager_role = Role::where('slug', 'manager')->first();
+            $permissions = Permission::all();
+            foreach ($permissions as $permission) {
+                $permission->delete();
+            }
 
-        $createTasks = new Permission();
-        $createTasks->slug = 'create-posts';
-        $createTasks->name = 'Create Posts';
-        $createTasks->save();
-        $createTasks->roles()->attach($dev_role);
+            $create_post = Permission::where('slug', 'create-posts')->first();
+            $create_category = Permission::where('slug', 'create-category')->first();
+            $manager = Permission::where('slug', 'all-permissions')->first();
 
-        $editUsers = new Permission();
-        $editUsers->slug = 'edit-users';
-        $editUsers->name = 'Edit Users';
-        $editUsers->save();
-        $editUsers->roles()->attach($manager_role);
+            //RoleTableSeeder.php
+            $cp_role = new Role();
+            $cp_role->slug = 'provider';
+            $cp_role->name = 'Content provider';
+            $cp_role->save();
+            $cp_role->permissions()->attach($create_post);
 
-        $editUsers = new Permission();
-        $editUsers->slug = 'create-category';
-        $editUsers->name = 'Create Category';
-        $editUsers->save();
-        $editUsers->roles()->attach($manager_role);
+            $cm_role = new Role();
+            $cm_role->slug = 'manager';
+            $cm_role->name = 'Content Manager';
+            $cm_role->save();
+            $cm_role->permissions()->attach($create_category);
+            $cm_role->permissions()->attach($create_post);
 
-        $dev_role = Role::where('slug', 'developer')->first();
-        $manager_role = Role::where('slug', 'manager')->first();
-        $dev_perm = Permission::where('slug', 'create-posts')->first();
-        $manager_perm = Permission::where('slug', 'edut-user')->first();
-        $manager_perm_category = Permission::where('slug', 'create-category')->first();
+            $admin_role = new Role();
+            $admin_role->slug = 'administrator';
+            $admin_role->name = 'Administrator';
+            $admin_role->save();
+            $admin_role->permissions()->attach($create_category);
+            $admin_role->permissions()->attach($create_post);
+            $admin_role->permissions()->attach($manager);
 
-        $developer = new User();
-        $developer->name = 'Ibrahim';
-        $developer->email = 'ibrahim@xala.no';
-        $developer->password = bcrypt('secrettt');
-        $developer->save();
-        $developer->roles()->attach($dev_role);
-        $developer->permissions()->attach($dev_perm);
+            $cp_role = Role::where('slug', 'provider')->first();
+            $cm_role = Role::where('slug', 'manager')->first();
+            $admin_role = Role::where('slug', 'administrator')->first();
 
-        $manager = new User();
-        $manager->name = 'RTA';
-        $manager->email = 'rta@rta.af';
-        $manager->password = bcrypt('secrettt');
-        $manager->save();
-        $manager->roles()->attach($manager_role);
-        $manager->permissions()->attach($manager_perm);
-        $manager->permissions()->attach($manager_perm_category);
+            // permissions
 
+            $createPost = new Permission();
+            $createPost->slug = 'create-posts';
+            $createPost->name = 'Create Posts';
+            $createPost->save();
+            $createPost->roles()->attach($cp_role);
+
+            $createCategory = new Permission();
+            $createCategory->slug = 'create-category';
+            $createCategory->name = 'Create Category';
+            $createCategory->save();
+            $createCategory->roles()->attach($cm_role);
+
+            $allPermissions = new Permission();
+            $allPermissions->slug = 'all-permissions';
+            $allPermissions->name = 'All Permissions';
+            $allPermissions->save();
+            $allPermissions->roles()->attach($admin_role);
+
+            $cp_role = Role::where('slug', 'provider')->first();
+            $cm_role = Role::where('slug', 'manager')->first();
+            $admin_role = Role::where('slug', 'administrator')->first();
+
+            $content_provider = new User();
+            $content_provider->name = 'Khan';
+            $content_provider->email = 'khan@xala.no';
+            $content_provider->password = bcrypt('rta2020');
+            $content_provider->save();
+            $content_provider->roles()->attach($cp_role);
+            $content_provider->permissions()->attach($createPost);
+
+            $manager = new User();
+            $manager->name = 'Ibrahim';
+            $manager->email = 'ibrahim@xala.no';
+            $manager->password = bcrypt('rta2020');
+            $manager->save();
+            $manager->roles()->attach($cm_role);
+            $manager->permissions()->attach($createPost);
+            $manager->permissions()->attach($createCategory);
+
+            $admin = new User();
+            $admin->name = 'RTA';
+            $admin->email = 'rta@rta.af';
+            $admin->password = bcrypt('rta2020');
+            $admin->save();
+            $admin->roles()->attach($admin_role);
+            $admin->permissions()->attach($createPost);
+            $admin->permissions()->attach($createCategory);
+            $admin->permissions()->attach($allPermissions);
+        }
 
         return redirect()->back();
     }

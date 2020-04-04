@@ -14,7 +14,7 @@ class CategoryController extends Controller
 
     public function Seed(Request $request)
     {
-        if ($request->user()->can('create-category')) {
+        if ($request->user()->hasRole('administrator')) {
 
             $categories = Category::all();
             foreach ($categories as $cat) {
@@ -27,7 +27,9 @@ class CategoryController extends Controller
             $category->description = 'Breaking related news';
             $category->url = 'breaking-news';
             $category->sort_order = 0;
-            $category->icon = 'free-code-camp';
+            $category->icon = 'fire';
+            $category->published = true;
+
 
             $category->save();
 
@@ -37,6 +39,7 @@ class CategoryController extends Controller
             $category->url = 'sport-news';
             $category->sort_order = 1;
             $category->icon = 'volleyball-ball';
+            $category->published = true;
 
             $category->save();
 
@@ -46,6 +49,7 @@ class CategoryController extends Controller
             $category->url = 'corona-news';
             $category->sort_order = 2;
             $category->icon = 'syringe';
+            $category->published = true;
 
             $category->save();
 
@@ -55,6 +59,7 @@ class CategoryController extends Controller
             $category->url = 'business-news';
             $category->sort_order = 3;
             $category->icon = 'chart-bar';
+            $category->published = true;
 
             $category->save();
 
@@ -64,10 +69,10 @@ class CategoryController extends Controller
             $category->url = 'tech-news';
             $category->sort_order = 4;
             $category->icon = 'sim-card';
+            $category->published = true;
 
             $category->save();
         }
-
 
         return redirect()->back();
     }

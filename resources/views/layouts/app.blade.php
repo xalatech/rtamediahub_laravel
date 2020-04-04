@@ -83,7 +83,7 @@
                         @else
                         @if (Auth::user()->hasRole('manager'))
                         <li class="nav-item mr-3">
-                        <a class="btn btn-default" href="{{ route('admin') }}">Switch to admin panel</a>
+                        <a class="btn btn-default" href="{{ route('adminCustom') }}">Switch to admin panel</a>
                         </li>
                      @endif
 

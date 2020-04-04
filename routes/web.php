@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +17,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->middleware('auth');
 
 Route::resource('categories', 'CategoryController');
-Route::resource('posts', 'PostController');
 Route::get('add_post', 'PostController@create')->name('add_post');
 Route::post('submit_post', 'PostController@store')->name('submit_post');
 Route::post('search', 'PostController@search')->name('search');
 Route::get('post_list', 'PostController@search')->name('post_list');
 
 Route::get('/roles', 'PermissionController@Permission');
-Route::get('/seed', 'CategoryController@Seed');
+Route::get('/seedCategories', 'CategoryController@Seed');
+Route::get('/seedPosts', 'PostController@Seed');
+
+Route::get('/post/{post}', function ($slug) {
+    $post = Post::where('slug', $slug)->first();
+    $data['post'] = $post;
+    return view('post_view', $data);
+});
 
 Route::group(['middleware' => 'role:manager'], function () {
-    Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/adminCustom', 'AdminController@index')->name('adminCustom');
 });
 
 Auth::routes();

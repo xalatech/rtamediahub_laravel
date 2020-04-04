@@ -29,10 +29,12 @@
                 <div class="card-body">
                       <div class="parent" id="posts">
                         @foreach ($posts as $post)
+                       
                         <div class="card child">
-                        <img class="card-img-top" src="{{ asset('images/').'/'.$post->upload_url }}" alt="{{$post->headline}}">
+                        <a href="/post/{{$post->slug}}"> <img class="card-img-top posthome" src="{{ asset('uploads/images/').'/'.$post->upload_url }}" alt="{{$post->headline}}"></a>
                         <div class="card-body">
                             <a class="card-title" href="/post/{{$post->slug}}">{{$post->headline}}</a>
+                            <p class="card-text">{!! \Illuminate\Support\Str::limit($post->description, 145, $end='...') !!}</p>
                             <p class="card-text">{{$post->tags}}</p>
                             <p class="card-text">{{$post->created_at}}</p>
                             <a href="/post/{{$post->slug}}" class="btn btn-default btn-sm">Read more</a>

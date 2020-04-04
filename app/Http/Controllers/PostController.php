@@ -49,7 +49,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $upload_url = public_path('/images/default.png');
+        $upload_url = 'default.png';
 
         if ($request->hasFile('upload_url')) {
             $file = $request->file('upload_url');
@@ -73,7 +73,8 @@ class PostController extends Controller
             'tags' => $request->get('tags'),
             'slug' => $slug,
             'upload_url' => $upload_url,
-            'thumb_url' => $upload_url
+            'thumb_url' => $upload_url,
+            'published' => false
         ]);
 
         $post->save();
@@ -150,5 +151,61 @@ class PostController extends Controller
         $collection['posts'] = $query->get();
 
         return view('post_list', $collection);
+    }
+
+    public function Seed(Request $request)
+    {
+        if ($request->user()->hasRole('administrator')) {
+
+            $posts = Post::all();
+            foreach ($posts as $post) {
+                $post->delete();
+            }
+
+            $post = new Post();
+            $post->headline = 'Shazad scored 50';
+            $post->description = 'On 8 March 2016, <b>Shahzad</b> became the first associate player to <b>score</b> 10 <b>fifty</b>-plus scores in T20Is. With his <b>50</b> against Scotland in a group match of 2016 ICC World Twenty20, he achieved his 10th T20I <b>score</b> more than <b>fifty</b>.';
+            $post->slug = 'shazad-scored-50';
+            $post->tags = '#shahzad #fifty #cricket';
+            $post->upload_url = '1585933168.jpg';
+            $post->thumb_url = '1585933168.jpg';
+            $post->published = true;
+
+            $category = Category::where('name', 'Sports news')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'shahpoor takes 2 wickets';
+            $post->description = '<p>Shahpoor zadran takes two wickets</p>';
+            $post->slug = 'shahpoor-takes-2-wickets';
+            $post->tags = '#shahpoor #wickets #cricket';
+            $post->upload_url = '1585933937.jpg';
+            $post->thumb_url = '1585933937.jpg';
+            $post->published = true;
+
+            $category = Category::where('name', 'Sports news')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'Ashraf ghani wins election';
+            $post->description = 'Ghani declared winner of Afghan election - but opponent rejects result ... election authorities have declared the incumbent, Ashraf Ghani, the winner, but ... On Tuesday, election authorities said Ghani won 50.64% of the vote';
+            $post->slug = 'ashraf-ghani-wins-election';
+            $post->tags = '#ashrafghani #election #afghanistan';
+            $post->upload_url = '1585933904.jpg';
+            $post->thumb_url = '1585933937.jpg';
+            $post->published = true;
+
+            $category = Category::where('name', 'Breaking news')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+        }
+
+
+        return redirect()->back();
     }
 }
