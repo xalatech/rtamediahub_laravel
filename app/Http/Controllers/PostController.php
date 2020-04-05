@@ -55,7 +55,16 @@ class PostController extends Controller
             $file = $request->file('upload_url');
             $type = $file->getMimeType();
             $name = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
+
+            if (substr($file->getMimeType(), 0, 5) == 'image') {
+                $destinationPath = public_path('/uploads/images');
+                $folder = '/images';
+            } else if (substr($file->getMimeType(), 0, 5) == 'video') {
+                $destinationPath = public_path('/uploads/videos');
+                $folder = '/videos';
+            }
+
+
             $file->move($destinationPath, $name);
             $upload_url = $name;
         }
@@ -72,8 +81,8 @@ class PostController extends Controller
             'category_id' => $request->get('category_id'),
             'tags' => $request->get('tags'),
             'slug' => $slug,
-            'upload_url' => $upload_url,
-            'thumb_url' => $upload_url,
+            'upload_url' => $folder . '/' . $upload_url,
+            'thumb_url' => $folder . '/' . $upload_url,
             'published' => false
         ]);
 
@@ -167,8 +176,8 @@ class PostController extends Controller
             $post->description = 'On 8 March 2016, <b>Shahzad</b> became the first associate player to <b>score</b> 10 <b>fifty</b>-plus scores in T20Is. With his <b>50</b> against Scotland in a group match of 2016 ICC World Twenty20, he achieved his 10th T20I <b>score</b> more than <b>fifty</b>.';
             $post->slug = 'shazad-scored-50';
             $post->tags = '#shahzad #fifty #cricket';
-            $post->upload_url = '1585933168.jpg';
-            $post->thumb_url = '1585933168.jpg';
+            $post->upload_url = '/images/1585933168.jpg';
+            $post->thumb_url = '/images/1585933168.jpg';
             $post->published = true;
 
             $category = Category::where('name', 'Sports news')->first();
@@ -181,8 +190,8 @@ class PostController extends Controller
             $post->description = '<p>Shahpoor zadran takes two wickets</p>';
             $post->slug = 'shahpoor-takes-2-wickets';
             $post->tags = '#shahpoor #wickets #cricket';
-            $post->upload_url = '1585933937.jpg';
-            $post->thumb_url = '1585933937.jpg';
+            $post->upload_url = '/images/1585933937.jpg';
+            $post->thumb_url = '/images/1585933937.jpg';
             $post->published = true;
 
             $category = Category::where('name', 'Sports news')->first();
@@ -195,8 +204,8 @@ class PostController extends Controller
             $post->description = 'Ghani declared winner of Afghan election - but opponent rejects result ... election authorities have declared the incumbent, Ashraf Ghani, the winner, but ... On Tuesday, election authorities said Ghani won 50.64% of the vote';
             $post->slug = 'ashraf-ghani-wins-election';
             $post->tags = '#ashrafghani #election #afghanistan';
-            $post->upload_url = '1585933904.jpg';
-            $post->thumb_url = '1585933937.jpg';
+            $post->upload_url = '/images/1585933904.jpg';
+            $post->thumb_url = '/images/1585933937.jpg';
             $post->published = true;
 
             $category = Category::where('name', 'Breaking news')->first();
