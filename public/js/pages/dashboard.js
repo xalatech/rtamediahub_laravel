@@ -6,37 +6,13 @@
  **/
 
 
-function submitFilter(id) {
-    changeCategory(id);
-
-    if (id === 0) {
-        $("#id_category")
-            .val("")
-            .change();
-    } else {
-        $("#id_category")
-            .val(id)
-            .change();
-    }
-}
-
-function changeCategory(id) {
-    $(".categories").each(function () {
-        $(this).removeClass("active");
-    });
-
-    $("a.category-" + id).addClass("active");
-}
-
-
-
 $(function () {
 
     'use strict'
     var categoryId, startDate, endDate, keyword;
 
-    $("#id_category").change(function () {
-        categoryId = $(this).val();
+    $(".categories").click(function () {
+        categoryId = $(this).attr("data-id");
         search();
     });
 
@@ -47,11 +23,7 @@ $(function () {
 
     function search() {
         var url = "search";
-        changeCategory(categoryId);
         if (categoryId == 0 || categoryId == "0") categoryId = "";
-
-        console.log(startDate);
-
         $.ajax({
             url: url,
             method: "POST",

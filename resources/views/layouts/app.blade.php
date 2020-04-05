@@ -158,7 +158,7 @@
             <div class="row justify-content-center">
               <form method="post" action="" id="search-box" class="col-md-4"> 
                 <i class="fa fa-globe"></i>
-                <input type="text" placeholder="Type your keyword here..." >
+                <input type="text" placeholder="Type your keyword here..." id="keywordSearch" >
                  <span class="inline-search">
                  <button id="search-btn" type="submit" value="Search" ><i class="fa fa-search"></i></button>
                 </span>
@@ -178,7 +178,7 @@
               </li>  
               @foreach ($categories as $menu)
               <li class="nav-item landing-top-menu__item categories category-{{$menu->id}} " data-id="{{$menu->id}}">
-                <a href="#" onclick="submitFilter({{$menu->id}})" class="nav-link" title="{{$menu->description}}">
+                <a href="#" class="nav-link" title="{{$menu->description}}">
                   <i class="nav-icon fas fa-{{$menu->icon}}"></i>
                     {{$menu->name}}
                 </a>
