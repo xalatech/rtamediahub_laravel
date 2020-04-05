@@ -8,17 +8,19 @@
             <section class="col-lg-12 connectedSortable">
                       <div class="parent" id="posts">
                         @foreach ($posts as $post)
-                       
                         <div class="card child">
-                        <a href="{{ asset('uploads').$post->upload_url }}" data-toggle="lightbox"> <img class="card-img-top posthome" src="{{ asset('uploads/').$post->upload_url }}" alt="{{$post->headline}}"></a>
+                           <a href="{{ asset('uploads').$post->upload_url }}" data-toggle="lightbox"> 
+                            @if($post->media_type == 'video')
+                                <video style="margin-top:-30px;" width="320" height="240" controls>
+                                    <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @else    
+                                <img class="card-img-top posthome" src="{{ asset('uploads').$post->upload_url }}" alt="{{$post->headline}}">
+                            @endif
+                        
+                            </a>
                         <a class="card-title image-overlay" href="/post/{{$post->slug}}">{{$post->headline}}</a>
-                         
-                   {{--      <div class="card-body">
-                            <p class="card-text">{!! \Illuminate\Support\Str::limit($post->description, 145, $end='...') !!}</p>
-                            <p class="card-text">{{$post->tags}}</p>
-                            <p class="card-text">{{$post->created_at}}</p>
-                            <a href="/post/{{$post->slug}}" class="btn btn-default btn-sm">Read more</a>
-                        </div> --}}
                         </div>
                         @endforeach
                       </div>

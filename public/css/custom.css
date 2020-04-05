@@ -135,8 +135,8 @@ footer .footer-left p {
 }
 
 .posthome {
-    max-height: 250px;
-    height: 250px;
+    max-height: 240px;
+    height: 240px;
 }
 
 .card-title {
@@ -160,8 +160,8 @@ main.content-wrapper {
 }
 
 .card.child {
-    max-width: 280px;
-    min-height: 250px;
+    max-width: 320px;
+    min-height: 240px;
     -webkit-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     -moz-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
@@ -384,10 +384,11 @@ ul li a {
 /* lightbox */
 .image-overlay {
     position: absolute;
-    top: 212px;
+    top: 204px;
     left: 0;
-    background: white;
+    background: black;
+    color: white;
     width: 100%;
     padding: 5px 10px 5px 10px;
-    opacity: .6;
+    opacity: .8;
 }

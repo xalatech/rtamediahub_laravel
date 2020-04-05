@@ -61,13 +61,12 @@ class PostController extends Controller
                 $destinationPath = public_path('/uploads/images');
                 $folder = '/images';
                 $file->move($destinationPath, $name);
+                $media_type = 'image';
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $destinationPath = public_path('/uploads/videos');
                 $folder = '/videos';
                 $file->move($destinationPath, $name);
-
-                $thumb = VideoThumbnail::createThumbnail(public_path($destinationPath . '/' . $name), public_path("uploads/thumbs/"), $name, 2, 240, 280);
-                $thumb_folder = public_path('/uploads/thumbs');
+                $media_type = 'video';
             }
 
 
@@ -87,7 +86,8 @@ class PostController extends Controller
             'tags' => $request->get('tags'),
             'slug' => $slug,
             'upload_url' => $folder . '/' . $upload_url,
-            'thumb_url' => $thumb_folder . '/' . $name,
+            'thumb_url' => $folder . '/' . $upload_url,
+            'media_type' => $media_type,
             'published' => false
         ]);
 
@@ -183,6 +183,7 @@ class PostController extends Controller
             $post->tags = '#shahzad #fifty #cricket';
             $post->upload_url = '/images/1585933168.jpg';
             $post->thumb_url = '/images/1585933168.jpg';
+            $post->media_type = 'image';
             $post->published = true;
 
             $category = Category::where('name', 'Sports news')->first();
@@ -197,6 +198,8 @@ class PostController extends Controller
             $post->tags = '#shahpoor #wickets #cricket';
             $post->upload_url = '/images/1585933937.jpg';
             $post->thumb_url = '/images/1585933937.jpg';
+            $post->media_type = 'image';
+
             $post->published = true;
 
             $category = Category::where('name', 'Sports news')->first();
@@ -211,6 +214,23 @@ class PostController extends Controller
             $post->tags = '#ashrafghani #election #afghanistan';
             $post->upload_url = '/images/1585933904.jpg';
             $post->thumb_url = '/images/1585933937.jpg';
+            $post->media_type = 'image';
+
+            $post->published = true;
+
+            $category = Category::where('name', 'Breaking news')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'Video test';
+            $post->description = 'video test';
+            $post->slug = 'ashraf-ghani-wins-election';
+            $post->tags = '#ashrafghani #election #afghanistan';
+            $post->upload_url = '/videos/Pexels Videos 1531069.mp4';
+            $post->thumb_url = '/videos/Pexels Videos 1531069.mp4';
+            $post->media_type = 'video';
             $post->published = true;
 
             $category = Category::where('name', 'Breaking news')->first();
