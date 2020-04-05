@@ -204,9 +204,9 @@ blockquote {
 
 .video-home-page-display-set__title {
     font-size: 16px;
-    flex-grow: 1;
-    margin: 0;
+    margin: 10px;
     padding: 15px;
+
 }
 
 .video-home-page-display-set__link-text {
@@ -214,7 +214,10 @@ blockquote {
 }
 
 .video-home-page-display-set__title {
-    font-size: 28px;
+    font-size: 24px;
+    background: #292c2f;
+    color: #fff;
+    border-radius: 10px;
 }
 
 .content-wrapper {
