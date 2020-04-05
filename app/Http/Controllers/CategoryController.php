@@ -23,6 +23,17 @@ class CategoryController extends Controller
             }
 
             $category = new Category();
+            $category->name = 'Corona Virus';
+            $category->description = 'Corona related news';
+            $category->url = 'corona-news';
+            $category->sort_order = 0;
+            $category->icon = 'syringe';
+            $category->published = true;
+
+            $category->save();
+
+
+            $category = new Category();
             $category->name = 'Breaking news';
             $category->description = 'Breaking related news';
             $category->url = 'breaking-news';
@@ -43,15 +54,6 @@ class CategoryController extends Controller
 
             $category->save();
 
-            $category = new Category();
-            $category->name = 'Corona news';
-            $category->description = 'Corona related news';
-            $category->url = 'corona-news';
-            $category->sort_order = 2;
-            $category->icon = 'syringe';
-            $category->published = true;
-
-            $category->save();
 
             $category = new Category();
             $category->name = 'Business news';

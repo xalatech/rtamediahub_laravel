@@ -228,12 +228,72 @@ class PostController extends Controller
             $post->description = 'video test';
             $post->slug = 'ashraf-ghani-wins-election';
             $post->tags = '#ashrafghani #election #afghanistan';
-            $post->upload_url = '/videos/Pexels Videos 1531069.mp4';
-            $post->thumb_url = '/videos/Pexels Videos 1531069.mp4';
+            $post->upload_url = '/videos/video5.mp4';
+            $post->thumb_url = '/videos/video5.mp4';
             $post->media_type = 'video';
             $post->published = true;
 
-            $category = Category::where('name', 'Breaking news')->first();
+            $category = Category::where('name', 'Corona Virus')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'Video test';
+            $post->description = 'video test';
+            $post->slug = 'ashraf-ghani-wins-election';
+            $post->tags = '#ashrafghani #election #afghanistan';
+            $post->upload_url = '/videos/video4.mp4';
+            $post->thumb_url = '/videos/video4.mp4';
+            $post->media_type = 'video';
+            $post->published = true;
+
+            $category = Category::where('name', 'Corona Virus')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'Video test';
+            $post->description = 'video test';
+            $post->slug = 'ashraf-ghani-wins-election';
+            $post->tags = '#ashrafghani #election #afghanistan';
+            $post->upload_url = '/videos/video3.mp4';
+            $post->thumb_url = '/videos/video3.mp4';
+            $post->media_type = 'video';
+            $post->published = true;
+
+            $category = Category::where('name', 'Corona Virus')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'Video test';
+            $post->description = 'video test';
+            $post->slug = 'ashraf-ghani-wins-election';
+            $post->tags = '#ashrafghani #election #afghanistan';
+            $post->upload_url = '/videos/video2.mp4';
+            $post->thumb_url = '/videos/video2.mp4';
+            $post->media_type = 'video';
+            $post->published = true;
+
+            $category = Category::where('name', 'Corona Virus')->first();
+            $post->category_id = $category->id;
+
+            $post->save();
+
+            $post = new Post();
+            $post->headline = 'Video test';
+            $post->description = 'video test';
+            $post->slug = 'ashraf-ghani-wins-election';
+            $post->tags = '#ashrafghani #election #afghanistan';
+            $post->upload_url = '/videos/video1.mp4';
+            $post->thumb_url = '/videos/video1.mp4';
+            $post->media_type = 'video';
+            $post->published = true;
+
+            $category = Category::where('name', 'Corona Virus')->first();
             $post->category_id = $category->id;
 
             $post->save();

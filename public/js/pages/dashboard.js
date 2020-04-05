@@ -37,7 +37,7 @@ $(function () {
                 keyword: keyword
             },
             success: function (data) {
-                $("#posts").html(data);
+                $("#postContent").html(data);
             }
         });
     }

@@ -134,10 +134,6 @@ footer .footer-left p {
     background: #bada55;
 }
 
-.posthome {
-    max-height: 240px;
-    height: 240px;
-}
 
 .card-title {
     font-weight: bold;
@@ -159,12 +155,66 @@ main.content-wrapper {
     min-height: 800px !important;
 }
 
+.posthome {
+    max-height: 219px;
+    height: 219px;
+}
+
 .card.child {
-    max-width: 320px;
-    min-height: 240px;
+    max-width: 390px;
+    min-height: 219px;
+    margin-left: 10px;
+
+    margin-bottom: 20px;
+
     -webkit-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     -moz-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
+}
+
+.category-badge {
+    background: #fff;
+    border-left: none;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.date-badge {
+    background: #fff;
+    border-left: none;
+    font-style: italic;
+    font-size: 80%;
+    margin-top: -18px;
+}
+
+blockquote {
+    background: #fff;
+    border-left: none;
+    margin: 0.3em -0.3rem;
+    padding: .5em .3rem;
+    font-style: italic;
+}
+
+.video-home-page-display-set__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.video-home-page-display-set__title {
+    font-size: 16px;
+    flex-grow: 1;
+    margin: 0;
+    padding: 15px;
+}
+
+.video-home-page-display-set__link-text {
+    margin-right: 20px;
+}
+
+.video-home-page-display-set__title {
+    font-size: 28px;
 }
 
 .content-wrapper {
@@ -186,8 +236,18 @@ main.content-wrapper {
 }
 
 .new-media {
-    font-size: 1.5rem;
-    padding-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-top: 14px;
+    background: #343a40 !important;
+    box-shadow: 6px 6px 20px 0 rgba(77, 77, 119, .10);
+    border-radius: 25px;
+    color: white;
+}
+
+.new-media:hover {
+    color: white;
+    opacity: .6;
 }
 
 /* search box */
@@ -248,7 +308,7 @@ main.content-wrapper {
 }
 
 #search-box .inline-search #search-btn {
-    background-image: linear-gradient(to right, #6A1B9A, #9C27B0);
+    background-image: linear-gradient(to right, #343a40, #343a40);
     border: 0;
     transition: background-size .2s ease-in-out, .2s box-shadow ease-in-out, .2s filter, .3s opacity;
     color: #fff;
@@ -383,12 +443,10 @@ ul li a {
 
 /* lightbox */
 .image-overlay {
-    position: absolute;
-    top: 204px;
-    left: 0;
     background: black;
     color: white;
     width: 100%;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 15px 5px 15px;
     opacity: .8;
+    margin-bottom: -10px;
 }

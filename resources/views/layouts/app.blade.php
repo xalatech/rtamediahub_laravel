@@ -163,7 +163,10 @@
                  <button id="search-btn" type="submit" value="Search" ><i class="fa fa-search"></i></button>
                 </span>
                 </form>
-                <a class="btn btn-success col-md-2 new-media" href="{{ route('add_post') }}">Add new Media</a>
+                <a class="btn col-md-2 new-media" href="{{ route('add_post') }}">
+                  <i class="fa fa-images mr-2"></i>
+                  UPLOAD MEDIA
+                </a>
             </div>
           </div>
           <nav class="navbar navbar-expand navbar-light justify-content-center landing-top-menu site-nav">
@@ -173,7 +176,7 @@
               <li class="nav-item landing-top-menu__item categories category-0 active" data-id="0">
                 <a href="{{ route('home') }}" class="nav-link" title="Home">
                   <i class="nav-icon fas fa-home"></i>
-                    Latest
+                    Home
                 </a>
               </li>  
               @foreach ($categories as $menu)

@@ -5,25 +5,75 @@
     <section class="content">
         <div class="container-fluid">
           <!-- Small boxes (Stat box) -->
-            <section class="col-lg-12 connectedSortable">
+            <section class="col-lg-12 connectedSortable" id="postContent">
+              <header class="video-home-page-display-set__header">
+                <h3 class="video-home-page-display-set__title">Latest posts today</h3>
+                <a class="video-home-page-display-set__link btn btn--hollow" href="/search/sets/gc7j5vVE8kKFbgt23TuAyg#license">
+                  {{-- <span class="video-home-page-display-set__link-text">VIEW ALL</span> --}}
+                  </a>
+              </header>
                       <div class="parent" id="posts">
                         @foreach ($posts as $post)
                         <div class="card child">
-                           <a href="{{ asset('uploads').$post->upload_url }}" data-toggle="lightbox"> 
-                            @if($post->media_type == 'video')
-                                <video style="margin-top:-30px;" width="320" height="240" controls>
-                                    <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                            <a href="{{ asset('uploads').$post->upload_url }}" class="posthome" data-toggle="lightbox"> 
+                                @if($post->media_type == 'video')
+                                    <video width="390" height="219" controls>
+                                        <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
                             @else    
                                 <img class="card-img-top posthome" src="{{ asset('uploads').$post->upload_url }}" alt="{{$post->headline}}">
                             @endif
-                        
                             </a>
-                        <a class="card-title image-overlay" href="/post/{{$post->slug}}">{{$post->headline}}</a>
-                        </div>
-                        @endforeach
+                            <div class="card-body">
+                              <p class="category-badge">{{$post->category->name}}</blockquote>
+                                <p class="date-badge">{{date('d-M-y h:m:s', strtotime($post->created_at))}}</blockquote>
+                              <p class="card-title">{{$post->headline}}</p>
+ 
+                              <p class="card-text">{{$post->tags}}</p>
+                                <p class="card-text">{{$post->createdOn}}</p>
+                             
+                                <a href="{{ asset('uploads').$post->upload_url }}" download class="btn btn-secondary btn-sm">Download Media</a>
+                            </div>
+                          </div>
+                          @endforeach
                       </div>
+
+                      <header class="video-home-page-display-set__header">
+                        <h3 class="video-home-page-display-set__title">Corona virus updates</h3>
+                        <a class="video-home-page-display-set__link btn btn--hollow" href="/search/sets/gc7j5vVE8kKFbgt23TuAyg#license">
+                          {{-- <span class="video-home-page-display-set__link-text">VIEW ALL</span> --}}
+                          </a>
+                      </header>
+                      <div class="parent" id="posts">
+                        @foreach ($posts as $post)
+                        @if($post->category->name == "Corona Virus")
+                        <div class="card child">
+                            <a href="{{ asset('uploads').$post->upload_url }}" class="posthome" data-toggle="lightbox"> 
+                                @if($post->media_type == 'video')
+                                    <video width="390" height="219" controls>
+                                        <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                            @else    
+                                <img class="card-img-top posthome" src="{{ asset('uploads').$post->upload_url }}" alt="{{$post->headline}}">
+                            @endif
+                            </a>
+                            <div class="card-body">
+                              <p class="category-badge">{{$post->category->name}}</blockquote>
+                                <p class="date-badge">{{date('d-M-y h:m:s', strtotime($post->created_at))}}</blockquote>
+                              <p class="card-title">{{$post->headline}}</p>
+ 
+                              <p class="card-text">{{$post->tags}}</p>
+                                <p class="card-text">{{$post->createdOn}}</p>
+                             
+                                <a href="{{ asset('uploads').$post->upload_url }}" download class="btn btn-secondary btn-sm">Download Media</a>
+                            </div>
+                          </div>
+                          @endif
+                          @endforeach
+                      </div>
+
             </section>
          
           </div>
