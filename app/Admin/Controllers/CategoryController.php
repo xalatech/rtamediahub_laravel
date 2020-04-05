@@ -8,7 +8,8 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-use App\Admin\Actions\CategoryAction;
+use App\Admin\Actions\CategoryPublishAction;
+use App\Admin\Actions\CategoryFeaturedAction;
 
 class CategoryController extends AdminController
 {
@@ -33,7 +34,8 @@ class CategoryController extends AdminController
         $grid->column('icon', __('Icon'));
         $grid->column('sort_order', __('Sort order'))->sortable();
         $grid->column('url', __('Url'));
-        $grid->published('Published?')->action(CategoryAction::class)->sortable();
+        $grid->published('Published?')->action(CategoryPublishAction::class)->sortable();
+        $grid->featured('Featured?')->action(CategoryFeaturedAction::class)->sortable();
         $grid->column('created_at', __('Created on'))->date('d-m-Y')->sortable();
         $grid->column('updated_at', __('Updated on'))->date('d-m-Y')->sortable();
 
@@ -56,6 +58,7 @@ class CategoryController extends AdminController
         $show->field('sort_order', __('Sort order'));
         $show->field('url', __('Url'));
         $show->field('published', __('Published'));
+        $show->field('featured', __('Featured'));
 
         return $show;
     }

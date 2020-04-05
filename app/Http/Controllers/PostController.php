@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Services\Slug;
 use Intervention\Image\Facades\Image as Image;
 use Pawlox\VideoThumbnail\Facade\VideoThumbnail;
+use Illuminate\Support\Carbon;
 
 class PostController extends Controller
 {
@@ -149,20 +150,23 @@ class PostController extends Controller
         $keyword = $request->input('keyword');
 
         $query = Post::query();
+        $query2 = Post::query();
 
         if (isset($category)) {
             $query->where('category_id', $category);
-        }
-
-        if (isset($startDate) && isset($endDate)) {
-            $query->whereBetween('created_at', [$startDate, $endDate]);
+            $query2->where('category_id', $category);
         }
 
         if (isset($keyword)) {
             $query->where('headline', 'like', '%' . $keyword . '%');
+            $query2->where('headline', 'like', '%' . $keyword . '%');
         }
 
-        $collection['posts'] = $query->get();
+        $posts_other = $query2->where('published', true)->whereDate('created_at', '!=', Carbon::today())->orderBy('created_at', 'desc')->get();
+        $posts_today = $query->where('published', true)->whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
+
+        $collection['posts_today'] = $posts_today;
+        $collection['posts_other'] = $posts_other;
 
         return view('post_list', $collection);
     }
@@ -247,6 +251,7 @@ class PostController extends Controller
             $post->thumb_url = '/videos/video4.mp4';
             $post->media_type = 'video';
             $post->published = true;
+            $post->created_at = Carbon::yesterday();
 
             $category = Category::where('name', 'Corona Virus')->first();
             $post->category_id = $category->id;
@@ -262,6 +267,7 @@ class PostController extends Controller
             $post->thumb_url = '/videos/video3.mp4';
             $post->media_type = 'video';
             $post->published = true;
+            $post->created_at = Carbon::create(2020, 4, 1, 0);
 
             $category = Category::where('name', 'Corona Virus')->first();
             $post->category_id = $category->id;
@@ -277,6 +283,8 @@ class PostController extends Controller
             $post->thumb_url = '/videos/video2.mp4';
             $post->media_type = 'video';
             $post->published = true;
+            $post->created_at = Carbon::create(2020, 4, 2, 0);
+
 
             $category = Category::where('name', 'Corona Virus')->first();
             $post->category_id = $category->id;
