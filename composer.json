@@ -21,7 +21,9 @@
         "laravel-admin-ext/media-player": "^1.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "pawlox/video-thumbnail": "^1.0",
+        "php-ffmpeg/php-ffmpeg": "^0.15.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -8,6 +8,7 @@ use App\Category;
 use Illuminate\Support\Str;
 use App\Services\Slug;
 use Intervention\Image\Facades\Image as Image;
+use Pawlox\VideoThumbnail\Facade\VideoThumbnail;
 
 class PostController extends Controller
 {
@@ -59,13 +60,17 @@ class PostController extends Controller
             if (substr($file->getMimeType(), 0, 5) == 'image') {
                 $destinationPath = public_path('/uploads/images');
                 $folder = '/images';
+                $file->move($destinationPath, $name);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $destinationPath = public_path('/uploads/videos');
                 $folder = '/videos';
+                $file->move($destinationPath, $name);
+
+                $thumb = VideoThumbnail::createThumbnail(public_path($destinationPath . '/' . $name), public_path("uploads/thumbs/"), $name, 2, 240, 280);
+                $thumb_folder = public_path('/uploads/thumbs');
             }
 
 
-            $file->move($destinationPath, $name);
             $upload_url = $name;
         }
         /* 
@@ -82,7 +87,7 @@ class PostController extends Controller
             'tags' => $request->get('tags'),
             'slug' => $slug,
             'upload_url' => $folder . '/' . $upload_url,
-            'thumb_url' => $folder . '/' . $upload_url,
+            'thumb_url' => $thumb_folder . '/' . $name,
             'published' => false
         ]);
 
