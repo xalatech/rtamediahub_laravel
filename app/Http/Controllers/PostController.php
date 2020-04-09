@@ -70,7 +70,6 @@ class PostController extends Controller
                 $media_type = 'video';
             }
 
-
             $upload_url = $name;
         }
         /* 

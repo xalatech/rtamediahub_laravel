@@ -8,6 +8,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends AdminController
 {
@@ -55,14 +57,10 @@ class UserController extends AdminController
     {
         $show = new Show(User::findOrFail($id));
 
-        $show->field('id', __('Id'));
         $show->field('name', __('Name'));
         $show->field('email', __('Email'));
         $show->field('email_verified_at', __('Email verified at'));
         $show->field('password', __('Password'));
-        $show->field('remember_token', __('Remember token'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -75,12 +73,13 @@ class UserController extends AdminController
     protected function form()
     {
         $form = new Form(new User());
-
         $form->text('name', __('Name'));
         $form->email('email', __('Email'));
         $form->datetime('email_verified_at', __('Email verified at'))->default(date('Y-m-d'));
-        $form->password('password', __('Password'));
+        $form->password(Hash::make('password'), __('Password'));
         $form->text('remember_token', __('Remember token'));
+        $form->multipleSelect('roles')->options(Role::all()->pluck('name', 'id'));
+
 
         return $form;
     }
