@@ -28,15 +28,26 @@ class PostController extends AdminController
     {
         $grid = new Grid(new Post());
 
+
         $grid->column('headline', __('Headline'));
-        $grid->column('tags', __('Tags'));
-        $grid->column('thumb_url', __('Thumbnail'))->lightbox();
+        //     $grid->column('tags', __('Tags'));
+        $grid->column('media_type')->display(function ($media_type) {
+            $assets = asset('uploads');
+            if ($media_type == 'video') {
+                return '<video width="178" height="100" controls>
+                <source src="' . $assets . $this->upload_url . '" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>';
+            } else {
+                return '<img width="178" src="' . $assets . $this->upload_url . '" alt="' . $this->headline . '">';
+            }
+        });
         $grid->column('category.name', __('Category'))->sortable();
         $grid->column('user.name', __('User'))->sortable();
-
         $grid->published('Published?')->action(PostAction::class)->sortable();
         $grid->column('created_at', __('Created on'))->date('d-m-Y')->sortable();
-        $grid->column('updated_at', __('Updated on'))->date('d-m-Y')->sortable();
+
+        $grid->column('upload_url', 'Download Media')->downloadable();
 
         return $grid;
     }
