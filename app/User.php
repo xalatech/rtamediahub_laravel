@@ -13,6 +13,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasPermissionsTrait; //Import The Trait
 
+
     public function posts()
     {
         return $this->hasMany('App\Post');

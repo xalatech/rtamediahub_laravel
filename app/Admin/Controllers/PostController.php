@@ -9,6 +9,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
 use App\Admin\Actions\PostAction;
+use App\Admin\Actions\PostDownloadAction;
 
 class PostController extends AdminController
 {
@@ -27,8 +28,6 @@ class PostController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Post());
-
-
         $grid->column('headline', __('Headline'));
         //     $grid->column('tags', __('Tags'));
         $grid->column('media_type')->display(function ($media_type) {
@@ -45,9 +44,10 @@ class PostController extends AdminController
         $grid->column('category.name', __('Category'))->sortable();
         $grid->column('user.name', __('User'))->sortable();
         $grid->published('Published?')->action(PostAction::class)->sortable();
-        $grid->column('created_at', __('Created on'))->date('d-m-Y')->sortable();
-
-        $grid->column('upload_url', 'Download Media')->downloadable();
+        //  $grid->column('upload_url', 'Download Media')->downloadable();
+        //  $grid->upload_url('Download Media')->action(PostDownloadAction::class);
+        $grid->column('download_count', __('Download Count'))->sortable();
+        $grid->column('created_at', __('Created'))->date('d-m-Y')->sortable();
 
         return $grid;
     }

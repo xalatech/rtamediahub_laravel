@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
 use App\Category;
+use App\Notifications\NewMediaUploaded;
 use Illuminate\Support\Str;
 use App\Services\Slug;
 use Intervention\Image\Facades\Image as Image;
@@ -139,6 +141,14 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download(Request $request)
+    {
+        $post_id = $request->input('post_id');
+        $post = Post::find($post_id);
+        $post->download_count = $post->download_count + 1;
+        $post->save();
     }
 
     public function search(Request $request)

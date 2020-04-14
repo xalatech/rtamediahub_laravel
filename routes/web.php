@@ -20,6 +20,7 @@ Route::resource('categories', 'CategoryController');
 Route::get('add_post', 'PostController@create')->name('add_post');
 Route::post('submit_post', 'PostController@store')->name('submit_post');
 Route::post('search', 'PostController@search')->name('search');
+Route::post('download_post', 'PostController@download')->name('download_post');
 Route::get('post_list', 'PostController@search')->name('post_list');
 
 Route::get('/roles', 'PermissionController@Permission');

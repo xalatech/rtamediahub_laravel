@@ -25,7 +25,7 @@
                   <p class="card-text">{{$post->tags}}</p>
                     <p class="card-text">{{$post->createdOn}}</p>
                  
-                    <a href="{{ asset('uploads').$post->upload_url }}" download class="btn btn-secondary btn-sm">Download Media</a>
+                    <a href="{{ asset('uploads').$post->upload_url }}" onclick="downloadPost({{ $post->id }})" download class="btn btn-secondary btn-sm">Download Media</a>
                 </div>
               </div>
               @endforeach
@@ -57,7 +57,7 @@
                   <p class="card-text">{{$post->tags}}</p>
                     <p class="card-text">{{$post->createdOn}}</p>
                  
-                    <a href="{{ asset('uploads').$post->upload_url }}" download class="btn btn-secondary btn-sm">Download Media</a>
+                    <a href="{{ asset('uploads').$post->upload_url }}" onclick="downloadPost({{ $post->id }})" download class="btn btn-secondary btn-sm">Download Media</a>
                 </div>
               </div>
               @endforeach

@@ -5,6 +5,22 @@
  *      This is a demo file used only for the main dashboard (index.html)
  **/
 
+function downloadPost(post_id) {
+    console.log(post_id);
+
+    var url = "download_post";
+    if (post_id);
+    $.ajax({
+        url: url,
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
+        data: {
+            post_id: post_id,
+        }
+    });
+}
 
 $(function () {
 
@@ -41,6 +57,9 @@ $(function () {
             }
         });
     }
+
+
+
     // Make the dashboard widgets sortable Using jquery UI
     $('.connectedSortable').sortable({
         placeholder: 'sort-highlight',

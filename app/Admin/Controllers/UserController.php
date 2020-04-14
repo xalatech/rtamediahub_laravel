@@ -10,6 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Admin\Actions\UserAction;
 
 class UserController extends AdminController
 {
@@ -40,9 +41,8 @@ class UserController extends AdminController
 
             return join('&nbsp;', $roles);
         });
-
-        $grid->column('created_at', __('Created at'))->date('d-m-Y')->sortable();;
-        $grid->column('updated_at', __('Updated at'))->date('d-m-Y')->sortable();;
+        $grid->notifications('Get Notifications?')->action(UserAction::class)->sortable();
+        $grid->column('created_at', __('Created at'))->date('d-m-Y')->sortable();
 
         return $grid;
     }

@@ -4,6 +4,8 @@ namespace App\Admin\Actions;
 
 use App\Post;
 use Encore\Admin\Actions\RowAction;
+use App\User;
+use App\Notifications\NewMediaUploaded;
 
 class PostAction extends RowAction
 {
@@ -12,6 +14,15 @@ class PostAction extends RowAction
     {
         $post->published = (int) !$post->published;
         $post->save();
+
+        if ($post->published) {
+            $query = User::query();
+            $users_to_notify = $query->where('notifications', true)->get();
+
+            foreach ($users_to_notify as $user) {
+                $user->notify(new NewMediaUploaded($post));
+            }
+        }
 
         $html = $post->published ? "<i class='fa fa-check text-green'></i>" : "<i class='fa fa-close text-red'></i>";
 
