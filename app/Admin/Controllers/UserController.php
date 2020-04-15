@@ -11,6 +11,7 @@ use Encore\Admin\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Admin\Actions\UserAction;
+use App\Admin\Actions\UserActivationAction;
 
 class UserController extends AdminController
 {
@@ -33,6 +34,8 @@ class UserController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
         $grid->column('email', __('Email'));
+        $grid->active('Activate?')->action(UserActivationAction::class)->sortable();
+        $grid->notifications('Notifications?')->action(UserAction::class)->sortable();
         $grid->roles()->display(function ($roles) {
 
             $roles = array_map(function ($role) {
@@ -41,8 +44,7 @@ class UserController extends AdminController
 
             return join('&nbsp;', $roles);
         });
-        $grid->notifications('Get Notifications?')->action(UserAction::class)->sortable();
-        $grid->column('created_at', __('Created at'))->date('d-m-Y')->sortable();
+        $grid->column('created_at', __('Created'))->date('d-m-Y')->sortable();
 
         return $grid;
     }

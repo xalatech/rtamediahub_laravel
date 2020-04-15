@@ -18,7 +18,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -28,11 +27,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->id) {
-            $data = $this->getHomeData($request);
+        $data = $this->getHomeData($request);
 
-            return view('home', $data);
-        }
+        return view('home', $data);
 
         return view('home');
     }
@@ -41,16 +38,9 @@ class HomeController extends Controller
     {
         $categories = Category::query()->where('published', true)->latest()->get();
         $featured = Category::query()->where('featured', true)->latest()->get();
-
-        if ($request->user()->hasRole('administrator') || $request->user()->hasRole('manager')) {
-            $posts_today = Post::query()->where('published', true)->whereDate('created_at', Carbon::today())->latest()->get();
-            $posts_other = Post::query()->where('published', true)->whereDate('created_at', '!=', Carbon::today())->latest()->get();
-            $posts = Post::query()->where('published', true)->latest()->get();
-        } else {
-            $posts_today = Post::query()->where('published', true)->where('user_id', Auth::user()->id)->whereDate('created_at', Carbon::today())->latest()->get();
-            $posts_other = Post::query()->where('published', true)->where('user_id', Auth::user()->id)->whereDate('created_at', '!=', Carbon::today())->latest()->get();
-            $posts = Post::query()->where('published', true)->where('user_id', Auth::user()->id)->latest()->get();
-        }
+        $posts_today = Post::query()->where('published', true)->whereDate('created_at', Carbon::today())->latest()->get();
+        $posts_other = Post::query()->where('published', true)->whereDate('created_at', '!=', Carbon::today())->latest()->get();
+        $posts = Post::query()->where('published', true)->latest()->get();
 
         $data['categories'] = $categories;
         $data['featured'] = $featured;

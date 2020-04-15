@@ -19,7 +19,6 @@ class PostController extends Controller
     public function __construct(Slug $slug)
     {
         $this->slug = $slug;
-        $this->middleware('auth');
     }
 
     /**

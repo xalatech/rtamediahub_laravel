@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\UserRegistration;
 
 class RegisterController extends Controller
 {
@@ -70,6 +71,11 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->notify(new UserRegistration($user));
+
+        $cp_role = Role::where('slug', 'provider')->first();
+        $user->attachRole($cp_role);
 
         return $user;
     }

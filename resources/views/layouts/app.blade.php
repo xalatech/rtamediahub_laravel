@@ -73,9 +73,6 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                         <!-- SEARCH FORM -->
-    
-
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -115,115 +112,38 @@
                 </div>
             </div>
         </nav>
-       {{--  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="/" class="brand-link">
-                <img src="{{ asset('images/rtalogo.png') }}" class="brand-image img-circle elevation-3" width="50" alt="rta"  style="opacity: .8" />
-            
-              <span class="brand-text font-weight-light">Mediahub</span>
-            </a>
-              <!-- Sidebar Menu -->
-              <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
-                       with font-awesome or any other icon font library -->
-                       <li class="nav-item">
-                      <a href="{{ route('home') }}" class="nav-link categories category-0 active" data-id="0" title="Home">
-                        <i class="nav-icon fas fa-home"></i>
-                        <p>
-                          Home
-                        </p>
-                      </a>
-                    </li>  
-                    @foreach ($categories as $menu)
-                    <li class="nav-item">
-                      <a href="#" onclick="submitFilter({{$menu->id}})" data-id="{{$menu->id}}" class="nav-link categories category-{{$menu->id}} " title="{{$menu->description}}">
-                        <i class="nav-icon fas fa-{{$menu->icon}}"></i>
-                        <p>
-                          {{$menu->name}}
-                        </p>
-                      </a>
-                    </li>  
-                    @endforeach
-        
-                  
-                </ul>
-              </nav>
-              <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-          </aside> --}}
-     
-          <div class="jumbotron jumbotron-fluid">
-            <div class="row justify-content-center">
-              <form method="post" action="" id="search-box" class="col-md-4"> 
-                <i class="fa fa-globe"></i>
-                <input type="text" placeholder="Type your keyword here..." id="keywordSearch" >
-                 <span class="inline-search">
-                 <button id="search-btn" type="submit" value="Search" ><i class="fa fa-search"></i></button>
-                </span>
-                </form>
-                <a class="btn col-md-2 new-media" href="{{ route('add_post') }}">
-                  <i class="fa fa-images mr-2"></i>
-                  UPLOAD MEDIA
-                </a>
-            </div>
-          </div>
-          <nav class="navbar navbar-expand navbar-light justify-content-center landing-top-menu site-nav">
-            <!-- Left navbar links -->
-            
-            <ul class="navbar-nav">
-              <li class="nav-item landing-top-menu__item categories category-0 active" data-id="0">
-                <a href="{{ route('home') }}" class="nav-link" title="Home">
-                  <i class="nav-icon fas fa-home"></i>
-                    Home
-                </a>
-              </li>  
-              @foreach ($categories as $menu)
-              <li class="nav-item landing-top-menu__item categories category-{{$menu->id}} " data-id="{{$menu->id}}">
-                <a href="#" class="nav-link" title="{{$menu->description}}">
-                  <i class="nav-icon fas fa-{{$menu->icon}}"></i>
-                    {{$menu->name}}
-                </a>
-              </li>  
-              @endforeach
-
-             
-            </ul>
-          {{--   <li>
-            <button type="button" class="btn btn-secondary daterange ml-3 mt-1" data-toggle="tooltip" id="reportrange" title="Date range">
-              <i class="far fa-calendar-alt"></i>  <span class="ml-2">Filter by date</span>
-           </button>
-            </li> --}}
-          </nav>
-
-          <main class="content-wrapper">
+       
+        <main class="content-wrapper">
             @yield('content')
         </main>
+       
         <footer>
-		
-          <div class="footer-limiter">
-      
-            <div class="footer-right">
-      
-              <a href="#"><i class="fab fa-facebook"></i></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-linkedin"></i></a>
-              <a href="#"><i class="fab fa-github"></i></a>
-      
-            </div>
-      
-            
-            <div class="d-flex">
+          <div class="container">
+            <div class="row">
+
+          <div class="col d-flex">
             <div class="footer-left">
               <img src="{{ asset('images/rtalogo.png') }}" class="brand-image img-circle elevation-3" width="80" alt="rta"  style="opacity: .8" />
             </div>
-            <div class="footer-left ml-3">
+             <div class="footer-left ml-3">
               <p class="footer-links mt-2">RTA Media Hub</p>
               <p>RTA © 2020</p>
               </div>
             </div>
+
+            <div class="col footer-right">
+              <a href="https://www.facebook.com/rtaworld" target="_blank"><i class="fab fa-facebook"></i></i></a>
+              <a href="https://twitter.com/rtaworld" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/worldrta/" target="_blank"><i class="fab fa-instagram"></i></a>
+      
+            </div>
+            <div class="col mt-3 mr-0 right">
+             <p class="text-white">Developed by <a href="http://www.xala.no" target="_blank">Xala Technologies</a></p>
+            </div>
+            
+      
           </div>
+        </div>
       
         </footer>
     </div>

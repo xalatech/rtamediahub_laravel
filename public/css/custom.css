@@ -25,7 +25,6 @@ footer .footer-limiter {
 }
 
 footer .footer-right {
-    float: right;
     margin-top: 6px;
     max-width: 180px;
 }
@@ -41,6 +40,11 @@ footer .footer-right a {
     text-align: center;
     line-height: 35px;
     margin-left: 3px;
+}
+
+footer .right {
+    float: right;
+    text-align: right;
 }
 
 footer p.footer-links {
@@ -156,17 +160,15 @@ main.content-wrapper {
 }
 
 .posthome {
-    max-height: 219px;
-    height: 219px;
+    max-height: 240px;
+    height: 240px;
 }
 
 .card.child {
-    max-width: 390px;
-    min-height: 219px;
-    margin-left: 10px;
-
+    max-width: 427px;
+    min-height: 240px;
+    margin-left: 15px;
     margin-bottom: 20px;
-
     -webkit-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     -moz-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
@@ -234,8 +236,9 @@ blockquote {
 .brand-link {
     text-decoration: none;
     text-transform: uppercase;
-    color: white;
-    font-weight: 500;
+    color: #8f9291;
+    font-weight: 1500;
+    font-size: 22px;
 }
 
 .new-media {
@@ -246,6 +249,7 @@ blockquote {
     box-shadow: 6px 6px 20px 0 rgba(77, 77, 119, .10);
     border-radius: 25px;
     color: white;
+    max-height: 60px;
 }
 
 .new-media:hover {
@@ -265,7 +269,7 @@ blockquote {
     height: 60px;
     border-radius: 25px;
     outline: none;
-    padding-left: 60px;
+    padding-left: 20px;
     line-height: 61px;
     box-shadow: 6px 6px 20px 0 rgba(77, 77, 119, .10);
     font-weight: 500;
@@ -296,13 +300,6 @@ blockquote {
     font-size: 14px;
 }
 
-#search-box .fa-globe {
-    position: absolute;
-    top: 19px;
-    left: 22px;
-    font-size: 23px;
-    color: #dcdee0;
-}
 
 #search-box .inline-search {
     position: absolute;
@@ -452,4 +449,21 @@ ul li a {
     padding: 5px 15px 5px 15px;
     opacity: .8;
     margin-bottom: -10px;
+}
+
+.btn-link {
+    font-weight: 400;
+    color: #cc9043;
+    text-decoration: none;
+}
+
+a {
+    color: #cc9043;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover,
+.btn-link:hover {
+    color: #664821;
 }

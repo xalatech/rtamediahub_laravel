@@ -14,18 +14,18 @@ use App\Post;
 |
 */
 
-Route::get('/', 'HomeController@index')->middleware('auth');
+Route::get('/', 'HomeController@index');
 
 Route::resource('categories', 'CategoryController');
-Route::get('add_post', 'PostController@create')->name('add_post');
-Route::post('submit_post', 'PostController@store')->name('submit_post');
+Route::get('add_post', 'PostController@create')->name('add_post')->middleware('auth');
+Route::post('submit_post', 'PostController@store')->name('submit_post')->middleware('auth');
 Route::post('search', 'PostController@search')->name('search');
-Route::post('download_post', 'PostController@download')->name('download_post');
+Route::post('download_post', 'PostController@download')->name('download_post')->middleware('auth');
 Route::get('post_list', 'PostController@search')->name('post_list');
 
-Route::get('/roles', 'PermissionController@Permission');
-Route::get('/seedCategories', 'CategoryController@Seed');
-Route::get('/seedPosts', 'PostController@Seed');
+Route::get('/roles', 'PermissionController@Permission')->middleware('auth');
+Route::get('/seedCategories', 'CategoryController@Seed')->middleware('auth');
+Route::get('/seedPosts', 'PostController@Seed')->middleware('auth');
 
 Route::get('/post/{post}', function ($slug) {
     $post = Post::where('slug', $slug)->first();
