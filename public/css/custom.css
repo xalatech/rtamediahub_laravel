@@ -35,11 +35,12 @@ footer .footer-right a {
     height: 35px;
     background-color: #33383b;
     border-radius: 2px;
-    font-size: 20px;
+    font-size: 25px;
     color: #ffffff;
     text-align: center;
     line-height: 35px;
-    margin-left: 3px;
+    margin-left: 10px;
+    padding-top: 5px;
 }
 
 footer .right {
@@ -140,8 +141,8 @@ footer .footer-left p {
 
 
 .card-title {
-    font-weight: bold;
     color: black;
+    font-size: 18px;
 }
 
 .nav-sidebar .nav-item>.nav-link {
@@ -174,28 +175,15 @@ main.content-wrapper {
     box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
 }
 
-.category-badge {
-    background: #fff;
-    border-left: none;
-    font-style: italic;
-    font-weight: 700;
-}
-
+.category-badge,
 .date-badge {
-    background: #fff;
-    border-left: none;
-    font-style: italic;
+    color: #696969;
+    background: transparent;
+    text-transform: uppercase;
     font-size: 80%;
-    margin-top: -18px;
+    font-weight: 400;
 }
 
-blockquote {
-    background: #fff;
-    border-left: none;
-    margin: 0.3em -0.3rem;
-    padding: .5em .3rem;
-    font-style: italic;
-}
 
 .video-home-page-display-set__header {
     display: flex;
@@ -228,9 +216,9 @@ blockquote {
 
 .jumbotron {
     margin-bottom: 0px;
-    background-color: rgb(224, 211, 199);
-    padding-top: 120px;
-    padding-bottom: 60px;
+    background-color: rgba(0, 0, 0, .08);
+    padding-top: 90px;
+    padding-bottom: 5px;
 }
 
 .brand-link {
@@ -242,14 +230,16 @@ blockquote {
 }
 
 .new-media {
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding-top: 14px;
+    font-size: 1rem;
+    font-weight: 400;
+    padding-top: 8px;
     background: #343a40 !important;
     box-shadow: 6px 6px 20px 0 rgba(77, 77, 119, .10);
-    border-radius: 25px;
+    border-radius: 8px;
     color: white;
-    max-height: 60px;
+    max-height: 45px;
+    max-width: 200px;
+    margin-left: 20px;
 }
 
 .new-media:hover {
@@ -266,13 +256,13 @@ blockquote {
 #search-box input {
     width: 100%;
     border: 0;
-    height: 60px;
-    border-radius: 25px;
+    height: 45px;
+    border-radius: 8px;
     outline: none;
-    padding-left: 20px;
-    line-height: 61px;
-    box-shadow: 6px 6px 20px 0 rgba(77, 77, 119, .10);
-    font-weight: 500;
+    padding-left: 18px;
+    line-height: 50px;
+    box-shadow: 0px 0px 10px 0 rgba(77, 77, 119, .10);
+    font-weight: 200;
     color: #8ba2ad;
 }
 
@@ -303,8 +293,8 @@ blockquote {
 
 #search-box .inline-search {
     position: absolute;
-    top: 10px;
-    right: 25px;
+    top: 8px;
+    right: 15px;
 }
 
 #search-box .inline-search #search-btn {
@@ -312,14 +302,14 @@ blockquote {
     border: 0;
     transition: background-size .2s ease-in-out, .2s box-shadow ease-in-out, .2s filter, .3s opacity;
     color: #fff;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     font-size: 14px;
     border-radius: 50px;
     outline: none !important;
-    line-height: 40px;
+    line-height: 35px;
     cursor: pointer;
-    box-shadow: 3px 4px 31px 0 rgba(253, 165, 93, 0.54);
+    box-shadow: 3px 4px 31px 0 rgba(0, 0, 0, 0.44);
     margin-left: 2px;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -383,12 +373,12 @@ blockquote {
 
 .landing-top-menu {
     display: flex;
-    padding: 1.05em 1em;
+    padding: .5em .5em;
 }
 
 .landing-top-menu__item {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: .2em;
+    padding-right: .2em;
 }
 
 .site-nav {
@@ -408,7 +398,7 @@ ul:hover li:not(:hover) a {
 
 ul li {
     position: relative;
-    padding: 5px 25px 5px 25px;
+    padding: 5px 20px 5px 20px;
     cursor: pointer;
 }
 
@@ -419,9 +409,9 @@ ul li::after {
     left: 0;
     width: 100%;
     height: 2px;
-    background: #3498db;
+    background: #343a40;
     transform: scaleX(0);
-    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: 0.4s cubic-bezier(0.125, 0.34, 0.24, 1);
 }
 
 ul li:hover::after,
@@ -433,7 +423,6 @@ ul li a {
     position: relative;
     display: flex;
     color: white;
-    font-family: Lato, sans-serif;
     text-decoration: none;
     transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }

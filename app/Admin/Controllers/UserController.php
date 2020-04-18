@@ -85,4 +85,10 @@ class UserController extends AdminController
 
         return $form;
     }
+
+    public function users(Request $request)
+    {
+        $q = $request->get('q');
+        return User::where('name', 'like', "%$q%")->paginate(null, ['id', 'name as text']);
+    }
 }

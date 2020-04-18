@@ -3,6 +3,8 @@
 namespace App\Admin\Controllers;
 
 use App\Post;
+use App\User;
+use App\Category;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -88,14 +90,15 @@ class PostController extends AdminController
         $form = new Form(new Post());
 
         $form->text('headline', __('Headline'));
-        $form->text('description', __('Description'));
+        $form->ckeditor('description', __('Description'));
         $form->text('slug', __('Slug'));
         $form->text('tags', __('Tags'));
-        $form->text('upload_url', __('Upload url'));
+        $form->text('upload_url', __('Media url'));
         $form->text('thumb_url', __('Thumb url'));
-        $form->number('user_id', __('User id'));
-        $form->number('category_id', __('Category id'));
+        $form->select('user_id', __('User'))->options(User::all()->pluck('name', 'id'));
+        $form->select('category_id', __('Category'))->options(Category::all()->pluck('name', 'id'));
         $form->switch('published', __('Published'));
+
 
         return $form;
     }

@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css')}}">
   <link rel="stylesheet" href="{{ asset('plugins/lightbox/ekko-lightbox.css')}}">
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/feed.css') }}" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>

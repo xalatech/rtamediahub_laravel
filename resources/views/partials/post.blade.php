@@ -1,4 +1,8 @@
 <div class="card child">
+    <div class="card-header d-flex badge-header">
+        <span class="category-badge">{{$post->category->name}}</span>
+        <span class="date-badge ml-auto">{{$post->created_at->diffForHumans()}}</span>
+    </div>
     @auth
     <a href="{{ asset('uploads').$post->upload_url }}" class="posthome" data-toggle="lightbox"> 
         @if($post->media_type == 'video')
@@ -23,12 +27,8 @@
     </a>
     @endif
     <div class="card-body">
-      <p class="category-badge">{{$post->category->name}}</blockquote>
-        <p class="date-badge">{{date('d-M-y h:m:s', strtotime($post->created_at))}}</blockquote>
       <p class="card-title">{{$post->headline}}</p>
-
       <p class="card-text">{{$post->tags}}</p>
-        <p class="card-text">{{$post->createdOn}}</p>
     </div>
     <div class="card-footer">
         @auth
