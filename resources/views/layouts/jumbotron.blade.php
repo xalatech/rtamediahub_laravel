@@ -3,7 +3,7 @@
       <form method="post" action="" id="search-box" class="col-md-4"> 
         <input type="text" placeholder="Type your keyword here..." id="keywordSearch" >
          <span class="inline-search">
-         <button id="search-btn" type="submit" value="Search" ><i class="fa fa-search"></i></button>
+         <i class="fa fa-search"></i>
         </span>
         </form>
         <a class="btn col-md-2 new-media" href="{{ route('add_post') }}">
