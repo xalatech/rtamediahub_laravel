@@ -1,18 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
-    <div class="row justify-content-center">
-      <form method="post" action="" id="search-box" class="col-md-4"> 
-        <input type="text" placeholder="Type your keyword here..." id="keywordSearch" >
-         <span class="inline-search">
-         <i class="fa fa-search"></i>
-        </span>
-        </form>
-        <a class="btn col-md-2 new-media" href="{{ route('add_post') }}">
-          <i class="fa fa-images mr-2"></i>
-          UPLOAD MEDIA
-        </a>
-    </div>
-  </div>
-  <nav class="navbar navbar-expand navbar-light justify-content-center landing-top-menu site-nav">
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm justify-content-center landing-top-menu">
     <ul class="navbar-nav">
       <li class="nav-item landing-top-menu__item categories category-0 active" data-id="0">
         <a href="{{ route('home') }}" class="nav-link" title="Home">
@@ -30,3 +16,4 @@
       @endforeach
     </ul>
   </nav>
+  

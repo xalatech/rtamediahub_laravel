@@ -156,7 +156,7 @@ footer .footer-left p {
 }
 
 main.content-wrapper {
-    padding-top: 30px !important;
+    padding-top: 130px !important;
     min-height: 800px !important;
 }
 
@@ -168,8 +168,8 @@ main.content-wrapper {
 .card.child {
     max-width: 427px;
     min-height: 240px;
-    margin-left: 15px;
-    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-bottom: 5px;
     -webkit-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     -moz-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
     box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
@@ -193,9 +193,9 @@ main.content-wrapper {
 }
 
 .video-home-page-display-set__title {
-    font-size: 16px;
-    margin: 10px;
-    padding: 15px;
+    font-size: 14px;
+    margin: 5px;
+    padding: 10px;
 
 }
 
@@ -204,7 +204,7 @@ main.content-wrapper {
 }
 
 .video-home-page-display-set__title {
-    font-size: 24px;
+    font-size: 20px;
     background: #292c2f;
     color: #fff;
     border-radius: 10px;
@@ -217,7 +217,7 @@ main.content-wrapper {
 .jumbotron {
     margin-bottom: 0px;
     background-color: rgba(0, 0, 0, .08);
-    padding-top: 90px;
+    padding-top: 80px;
     padding-bottom: 5px;
 }
 
@@ -233,7 +233,7 @@ main.content-wrapper {
     font-size: 1rem;
     font-weight: 400;
     padding-top: 8px;
-    background: #343a40 !important;
+    background: #696969 !important;
     box-shadow: 6px 6px 20px 0 rgba(77, 77, 119, .10);
     border-radius: 8px;
     color: white;
@@ -251,12 +251,13 @@ main.content-wrapper {
 #search-box {
     padding-left: 0;
     position: relative;
+    top: 9px;
 }
 
 #search-box input {
     width: 100%;
     border: 0;
-    height: 45px;
+    height: 38px;
     border-radius: 8px;
     outline: none;
     padding-left: 18px;
@@ -364,6 +365,7 @@ main.content-wrapper {
     background: white;
     padding-left: 0;
     padding-right: 0;
+    margin-top: 75px;
 }
 
 .landing-top-menu {
@@ -372,7 +374,7 @@ main.content-wrapper {
 
 .landing-top-menu {
     display: flex;
-    padding: .5em .5em;
+    padding: .2em .2em;
 }
 
 .landing-top-menu__item {

@@ -67,10 +67,16 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
+                    <form method="post" action="" id="search-box" class="col-md-5"> 
+                        <input type="text" placeholder="Type your keyword here..." id="keywordSearch" >
+                         <span class="inline-search">
+                         <i class="fa fa-search"></i>
+                        </span>
+                        </form>
+                        <a class="btn col-md-4 new-media" href="{{ route('add_post') }}">
+                          <i class="fa fa-images mr-2"></i>
+                          UPLOAD MEDIA
+                        </a>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
