@@ -1,3 +1,4 @@
+<div class="col-md-4 col-xs-12">
 <div class="card child">
     <div class="card-header d-flex badge-header">
         <span class="category-badge">{{$post->category->name}}</span>
@@ -6,7 +7,7 @@
     @auth
     <a href="{{ asset('uploads').$post->upload_url }}" class="posthome" data-toggle="lightbox"> 
         @if($post->media_type == 'video')
-            <video width="427" height="240" controls>
+            <video  controls>
                 <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -17,7 +18,7 @@
     @else
     <a href="{{ asset('login') }}" class="posthome" title="You need to login to play/download media."> 
         @if($post->media_type == 'video')
-            <video width="427" height="240">
+            <video >
                 <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -38,3 +39,4 @@
         @endauth
     </div>
   </div>
+</div>

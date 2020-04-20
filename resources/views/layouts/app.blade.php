@@ -68,7 +68,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <form method="post" action="" id="search-box" class="col-md-5"> 
-                        <input type="text" placeholder="Type your keyword here..." id="keywordSearch" >
+                        <input type="text" placeholder="Search media ..." id="keywordSearch" >
                          <span class="inline-search">
                          <i class="fa fa-search"></i>
                         </span>
@@ -124,7 +124,7 @@
             @yield('content')
         </main>
        
-        <footer>
+        <footer class="d-none d-sm-block">
           <div class="container">
             <div class="row">
 

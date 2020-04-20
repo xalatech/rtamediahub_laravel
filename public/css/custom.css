@@ -162,12 +162,10 @@ main.content-wrapper {
 
 .posthome {
     max-height: 240px;
-    height: 240px;
 }
 
 .card.child {
     max-width: 427px;
-    min-height: 240px;
     margin-left: 5px;
     margin-bottom: 5px;
     -webkit-box-shadow: 0px 2px 5px -1px rgba(194, 184, 194, 1);
@@ -263,32 +261,27 @@ main.content-wrapper {
     padding-left: 18px;
     line-height: 50px;
     box-shadow: 0px 0px 10px 0 rgba(77, 77, 119, .10);
-    font-weight: 200;
-    color: #8ba2ad;
+    padding-top: 0px;
 }
 
 #search-box input::-webkit-input-placeholder {
-    font-weight: 500;
-    color: #c5d3de;
-    font-size: 16px;
+    font-size: 14px;
+    color: #8f9296;
 }
 
 #search-box input::-moz-placeholder {
-    font-weight: 500;
-    color: #c5d3de;
     font-size: 14px;
+    color: #8f9296;
 }
 
 #search-box input::-ms-input-placeholder {
-    font-weight: 500;
-    color: #c5d3de;
     font-size: 14px;
+    color: #8f9296;
 }
 
 #search-box input::-moz-placeholder {
-    font-weight: 500;
-    color: #c5d3de;
     font-size: 14px;
+    color: #8f9296;
 }
 
 
@@ -350,6 +343,20 @@ main.content-wrapper {
     .landing-top-menu {
         display: none !important;
     }
+
+    #search-box {
+        display: none !important;
+    }
+
+    main.content-wrapper {
+        padding-top: 70px !important;
+        min-height: 800px !important;
+    }
+}
+
+video {
+    width: 100%;
+    max-height: 100%;
 }
 
 /* end search box */
