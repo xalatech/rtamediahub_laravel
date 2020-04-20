@@ -350,7 +350,7 @@ main.content-wrapper {
 
     main.content-wrapper {
         padding-top: 70px !important;
-        min-height: 800px !important;
+        min-height: 100vh !important;
     }
 }
 
