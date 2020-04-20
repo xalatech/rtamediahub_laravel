@@ -74,8 +74,8 @@ class RegisterController extends Controller
 
         $user->notify(new UserRegistration($user));
 
-        $cp_role = Role::where('slug', 'provider')->first();
-        $user->attachRole($cp_role);
+        /*  $cp_role = Role::where('slug', 'provider')->first();
+        $user->attachRole($cp_role); */
 
         return $user;
     }
