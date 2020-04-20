@@ -77,6 +77,6 @@ class RegisterController extends Controller
         /*  $cp_role = Role::where('slug', 'provider')->first();
         $user->attachRole($cp_role); */
 
-        return $user;
+        return redirect('home');
     }
 }
