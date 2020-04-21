@@ -82,11 +82,11 @@
                               0%
                             </div>
                           </div>
-                          <br />
+                         <br />
                           <div id="success">
       
                           </div>
-                          <br />
+                      
                     
                 </div>
                     <div class="card-footer">
@@ -111,8 +111,8 @@
           beforeSend:function(){
             $('#success').empty();
             $('.progress').show('slow');
-            $('#success').html('<span class="text-info">Media upload in progress. Please be patient !</span>');
-
+            
+            $('#success').html('<span class="text-info blinking">Media upload in progress. Please be patient !</span>');
             $('.submitbtn').prop('disabled', true);
             
           },
@@ -134,9 +134,14 @@
             {
               $('.progress-bar').text('Uploaded');
               $('.progress-bar').css('width', '100%');
-              $('.formView').hide('slow', function() {
+              $('#success').html('<span class="text-success">Upload completed successfully !</span>');
+
+              setTimeout(() => {
+                $('.formView').hide('slow', function() {
                 $('.notify').show('slow');
               })
+              }, 2000);
+             
             }
           }
         });
