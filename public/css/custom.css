@@ -65,6 +65,10 @@ footer .footer-left p {
     background-color: rgba(0, 0, 0, .08);
 }
 
+.card-body {
+    min-height: 90px;
+}
+
 .parent {
     display: flex;
     flex-wrap: wrap;

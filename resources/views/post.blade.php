@@ -7,7 +7,7 @@
         <section class="col-lg-12 connectedSortable">
             <div class="card">
                 <div class="card-header">Add new post</div>
-                <form method="post" action="/submit_post" enctype="multipart/form-data">
+                <form class="postform" method="post" action="/submit_post" enctype="multipart/form-data">
                   
                 <div class="card-body">
                         @csrf
@@ -64,7 +64,17 @@
                             </div>
                         </div>
 
-                       
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow=""
+                            aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                              0%
+                            </div>
+                          </div>
+                          <br />
+                          <div id="success">
+      
+                          </div>
+                          <br />
                     
                 </div>
                     <div class="card-footer">
@@ -81,4 +91,41 @@
         </section>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+    
+        $('.postform').ajaxForm({
+          beforeSend:function(){
+            $('#success').empty();
+          },
+          uploadProgress:function(event, position, total, percentComplete)
+          {
+            $('.progress-bar').text(percentComplete + '%');
+            $('.progress-bar').css('width', percentComplete + '%');
+          },
+          success:function(data)
+          {
+            if(data.errors)
+            {
+              $('.progress-bar').text('0%');
+              $('.progress-bar').css('width', '0%');
+              $('#success').html('<span class="text-danger"><b>'+data.errors+'</b></span>');
+            }
+            if(data.success)
+            {
+              $('.progress-bar').text('Uploaded');
+              $('.progress-bar').css('width', '100%');
+              $('#success').html('<span class="text-success"><b>'+data.success+' Mediahub administrator will review your post and publish. You will be notified by email once the media is published on RTA Media Hub.</b></span><br /><br />');
+
+              setTimeout(() => {
+                window.location.href = "/";
+              }, 2000);
+             
+            }
+          }
+        });
+    
+    });
+    </script>
 @endsection

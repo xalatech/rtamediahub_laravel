@@ -47,6 +47,7 @@
     <script src="{{ asset('plugins/lightbox/ekko-lightbox.min.js')}}"></script>
     
     <script src="{{ asset('js/pages/dashboard.js')}}"></script>
+    <script src="{{ asset('js/jquery.form.js')}}"></script>
 
 </head>
 
@@ -67,6 +68,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @if($searchbar ?? false)
                     <form method="post" action="" id="search-box" class="col-md-5"> 
                         <input type="text" placeholder="Search media ..." id="keywordSearch" >
                          <span class="inline-search">
@@ -77,7 +79,7 @@
                           <i class="fa fa-images mr-2"></i>
                           UPLOAD MEDIA
                         </a>
-
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

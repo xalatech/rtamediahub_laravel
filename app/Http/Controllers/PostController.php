@@ -94,7 +94,11 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect('home');
+        $output = array(
+            'success' => 'Media uploaded successfully',
+        );
+
+        return response()->json($output);
     }
 
     /**
@@ -179,7 +183,7 @@ class PostController extends Controller
         return view('post_list', $collection);
     }
 
-    public function Seed(Request $request)
+    /*  public function Seed(Request $request)
     {
         if ($request->user()->hasRole('administrator')) {
 
@@ -317,5 +321,31 @@ class PostController extends Controller
 
 
         return redirect()->back();
+    } */
+
+    function upload(Request $request)
+    {
+        /*  $rules = array(
+      'file'  => 'required|image|max:2048'
+     );
+
+     $error = Validator::make($request->all(), $rules);
+
+     if($error->fails())
+     {
+      return response()->json(['errors' => $error->errors()->all()]);
+     } */
+
+        $image = $request->file('file');
+
+        $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $new_name);
+
+        $output = array(
+            'success' => 'Image uploaded successfully',
+            'image'  => '<img src="/images/' . $new_name . '" class="img-thumbnail" />'
+        );
+
+        return response()->json($output);
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['searchbar' => true])
 @extends('layouts.jumbotron')
 
 @section('content')
