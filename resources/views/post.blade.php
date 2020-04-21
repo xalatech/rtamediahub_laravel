@@ -76,7 +76,7 @@
                             </div>
                         </div>
 
-                        <div class="progress" style="height: 20px;">
+                        <div class="progress" style="height: 20px;display:none;">
                             <div class="progress-bar bg-success" role="progressbar" aria-valuenow=""
                             aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                               0%
@@ -110,7 +110,8 @@
         $('.postform').ajaxForm({
           beforeSend:function(){
             $('#success').empty();
-            $('#success').html('<span class="text-warning">Downlaod in progress. Please be patient !</span>');
+            $('.progress').show('slow');
+            $('#success').html('<span class="text-info">Media upload in progress. Please be patient !</span>');
 
             $('.submitbtn').prop('disabled', true);
             
