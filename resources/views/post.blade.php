@@ -79,7 +79,7 @@
                 </div>
                     <div class="card-footer">
                         <div class="flex-container center">
-                        <button type="submit" class="btn btn-success col-lg-3">Save Post</button>
+                        <button type="submit" class="btn submitbtn btn-success col-lg-3">Save Post</button>
                          <a href="/" type="button" class="btn btn-warning ml-3 col-lg-3">Cancel</a>
          
                         </div>
@@ -98,11 +98,15 @@
         $('.postform').ajaxForm({
           beforeSend:function(){
             $('#success').empty();
+            $('.submitbtn').prop('disabled', true);
+            
           },
           uploadProgress:function(event, position, total, percentComplete)
           {
             $('.progress-bar').text(percentComplete + '%');
             $('.progress-bar').css('width', percentComplete + '%');
+
+            
           },
           success:function(data)
           {
