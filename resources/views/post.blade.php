@@ -5,7 +5,19 @@
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
         <section class="col-lg-12 connectedSortable">
-            <div class="card">
+            <div class="card notify" style="display: none;">
+                <div class="card-header">Media uploaded successfully !</div>
+                  
+                <div class="card-body">
+                    <p>Mediahub administrator will review your post and publish. You will be notified by email once the media is published on RTA Media Hub.</p>
+                </div>
+
+                <div class="card-footer">
+                    <a href="/" class="btn submitbtn btn-secondary col-lg-3">Return to RTA Mediahub</a>
+                </div>
+
+            </div>
+            <div class="card formView">
                 <div class="card-header">Add new post</div>
                 <form class="postform" method="post" action="/submit_post" enctype="multipart/form-data">
                   
@@ -98,6 +110,8 @@
         $('.postform').ajaxForm({
           beforeSend:function(){
             $('#success').empty();
+            $('#success').html('<span class="text-warning">Downlaod in progress. Please be patient !</span>');
+
             $('.submitbtn').prop('disabled', true);
             
           },
@@ -105,7 +119,6 @@
           {
             $('.progress-bar').text(percentComplete + '%');
             $('.progress-bar').css('width', percentComplete + '%');
-
             
           },
           success:function(data)
@@ -120,12 +133,9 @@
             {
               $('.progress-bar').text('Uploaded');
               $('.progress-bar').css('width', '100%');
-              $('#success').html('<span class="text-success"><b>'+data.success+' Mediahub administrator will review your post and publish. You will be notified by email once the media is published on RTA Media Hub.</b></span><br /><br />');
-
-              setTimeout(() => {
-                window.location.href = "/";
-              }, 2000);
-             
+              $('.formView').hide('slow', function() {
+                $('.notify').show('slow');
+              })
             }
           }
         });
