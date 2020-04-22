@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{!! NoCaptcha::renderJs() !!}
 @section('content')
 <div class="content" style="margin-top:120px;">
     <div class="row justify-content-center">
@@ -72,7 +72,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-secondary">
