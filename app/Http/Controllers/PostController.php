@@ -12,6 +12,8 @@ use App\Services\Slug;
 use Intervention\Image\Facades\Image as Image;
 use Pawlox\VideoThumbnail\Facade\VideoThumbnail;
 use Illuminate\Support\Carbon;
+use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -54,6 +56,9 @@ class PostController extends Controller
     {
         $upload_url = 'default.png';
 
+        $disk = Storage::disk('azure');
+
+
         if ($request->hasFile('upload_url')) {
             $file = $request->file('upload_url');
             $type = $file->getMimeType();
@@ -62,12 +67,16 @@ class PostController extends Controller
             if (substr($file->getMimeType(), 0, 5) == 'image') {
                 $destinationPath = public_path('/uploads/images');
                 $folder = '/images';
-                $file->move($destinationPath, $name);
+                //$file->move($destinationPath, $name);
+                $disk->put($folder, $file);
+
                 $media_type = 'image';
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $destinationPath = public_path('/uploads/videos');
                 $folder = '/videos';
-                $file->move($destinationPath, $name);
+                // $file->move($destinationPath, $name);
+                $disk->put($folder, $file);
+
                 $media_type = 'video';
             }
 
