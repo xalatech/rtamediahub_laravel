@@ -68,12 +68,12 @@ class PostController extends Controller
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
                 $folder = '/images';
-                $disk->put($folder, $file);
+                $upload_url = $disk->put($folder, $file);
                 $media_type = 'image';
                 $output =  $this->createNewPost($request, $upload_url, $media_type);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $folder = '/videos';
-                $disk->put($folder, $file);
+                $upload_url = $disk->put($folder, $file);
                 $media_type = 'video';
                 $output = $this->createNewPost($request, $upload_url, $media_type);
             }
