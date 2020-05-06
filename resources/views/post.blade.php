@@ -118,12 +118,19 @@
           },
           uploadProgress:function(event, position, total, percentComplete)
           {
+            console.log(total);
+            console.log(position);
+            console.log(percentComplete);
+
             $('.progress-bar').text(percentComplete + '%');
             $('.progress-bar').css('width', percentComplete + '%');
             
           },
           success:function(data)
           {
+            console.log(data.video);
+            console.log(data.name);
+
             if(data.errors)
             {
               $('.progress-bar').text('0%');

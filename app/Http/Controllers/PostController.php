@@ -14,6 +14,8 @@ use Pawlox\VideoThumbnail\Facade\VideoThumbnail;
 use Illuminate\Support\Carbon;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use Illuminate\Support\Facades\Storage;
+use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 class PostController extends Controller
 {
@@ -54,39 +56,43 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $upload_url = 'default.png';
-
+        $media_type = 'image';
         $disk = Storage::disk('azure');
+        $output = "";
 
+        $file = $request->file('upload_url');
+        $name = time() . '.' . $file->getClientOriginalExtension();
 
-        if ($request->hasFile('upload_url')) {
+        /* if ($request->hasFile('upload_url')) {
             $file = $request->file('upload_url');
-            $type = $file->getMimeType();
             $name = time() . '.' . $file->getClientOriginalExtension();
+            $upload_url = $name;
+
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
-                $destinationPath = public_path('/uploads/images');
                 $folder = '/images';
-                //$file->move($destinationPath, $name);
                 $disk->put($folder, $file);
-
                 $media_type = 'image';
+                $output =  $this->createNewPost($request, $upload_url, $media_type);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
-                $destinationPath = public_path('/uploads/videos');
                 $folder = '/videos';
-                // $file->move($destinationPath, $name);
-                $disk->put($folder, $file);
-
+                $video = $disk->put($folder, $file);
                 $media_type = 'video';
+                $output = $this->createNewPost($request, $upload_url, $media_type);
             }
-
-            $upload_url = $name;
-        }
-        /* 
-        if ($type == 'image/jpeg') {
-            $thumb = Image::make(public_path('/images') . '/' . $name)->resize(320, 240)->insert(public_path('/images/rtalogo.png'));
         } */
 
+        $video = $disk->put('videos', $file);
+        $output['video'] = $video;
+        $output['name'] = $name;
+
+        return response()->json($output);
+    }
+
+    public function createNewPost(Request $request, $upload_url, $media_type)
+    {
         $slug = $this->slug->createSlug($request->get('headline'));
 
         $post = new Post([
@@ -95,8 +101,8 @@ class PostController extends Controller
             'category_id' => $request->get('category_id'),
             'tags' => $request->get('tags'),
             'slug' => $slug,
-            'upload_url' => $folder . '/' . $upload_url,
-            'thumb_url' => $folder . '/' . $upload_url,
+            'upload_url' => $upload_url,
+            'thumb_url' => $upload_url,
             'media_type' => $media_type,
             'published' => false
         ]);
@@ -107,7 +113,7 @@ class PostController extends Controller
             'success' => 'Media uploaded successfully',
         );
 
-        return response()->json($output);
+        return $output;
     }
 
     /**
@@ -331,30 +337,4 @@ class PostController extends Controller
 
         return redirect()->back();
     } */
-
-    function upload(Request $request)
-    {
-        /*  $rules = array(
-      'file'  => 'required|image|max:2048'
-     );
-
-     $error = Validator::make($request->all(), $rules);
-
-     if($error->fails())
-     {
-      return response()->json(['errors' => $error->errors()->all()]);
-     } */
-
-        $image = $request->file('file');
-
-        $new_name = rand() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images'), $new_name);
-
-        $output = array(
-            'success' => 'Image uploaded successfully',
-            'image'  => '<img src="/images/' . $new_name . '" class="img-thumbnail" />'
-        );
-
-        return response()->json($output);
-    }
 }
