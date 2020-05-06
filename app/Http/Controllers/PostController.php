@@ -56,20 +56,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $upload_url = 'default.png';
         $media_type = 'image';
         $disk = Storage::disk('azure');
         $output = "";
 
-        $file = $request->file('upload_url');
-        $name = time() . '.' . $file->getClientOriginalExtension();
-
-        /* if ($request->hasFile('upload_url')) {
+        if ($request->hasFile('upload_url')) {
             $file = $request->file('upload_url');
             $name = time() . '.' . $file->getClientOriginalExtension();
             $upload_url = $name;
-
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
                 $folder = '/images';
@@ -78,15 +73,11 @@ class PostController extends Controller
                 $output =  $this->createNewPost($request, $upload_url, $media_type);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $folder = '/videos';
-                $video = $disk->put($folder, $file);
+                $disk->put($folder, $file);
                 $media_type = 'video';
                 $output = $this->createNewPost($request, $upload_url, $media_type);
             }
-        } */
-
-        $video = $disk->put('videos', $file);
-        $output['video'] = $video;
-        $output['name'] = $name;
+        }
 
         return response()->json($output);
     }
