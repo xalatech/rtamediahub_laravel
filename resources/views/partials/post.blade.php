@@ -33,7 +33,7 @@
     </div>
     <div class="card-footer">
         @auth
-        <a href="{{ $media_url.$post->upload_url }}" onclick="downloadPost({{ $post->id }})" download class="btn btn-secondary btn-sm">Download Media</a>
+        <a href="{{ $media_url.$post->upload_url }}" onclick="downloadPost({{ $post->id }})" download target="_blank" class="btn btn-secondary btn-sm">Download Media</a>
         @else
         <a href="{{ route('login') }}" title="You need to login to download media." class="btn btn-secondary btn-sm">Download Media</a>
         @endauth

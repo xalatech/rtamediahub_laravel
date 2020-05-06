@@ -33,14 +33,14 @@ class PostController extends AdminController
         $grid->column('headline', __('Headline'));
         //     $grid->column('tags', __('Tags'));
         $grid->column('media_type')->display(function ($media_type) {
-            $assets = asset('uploads');
+            $media_url = 'https://' . config('filesystems.disks.azure.name') . '.blob.core.windows.net/' . config('filesystems.disks.azure.container') . '/';
             if ($media_type == 'video') {
                 return '<video width="178" height="100" controls>
-                <source src="' . $assets . $this->upload_url . '" type="video/mp4">
+                <source src="' . $media_url . $this->upload_url . '" type="video/mp4">
                 Your browser does not support the video tag.
             </video>';
             } else {
-                return '<img width="178" src="' . $assets . $this->upload_url . '" alt="' . $this->headline . '">';
+                return '<img width="178" src="' . $media_url . $this->upload_url . '" alt="' . $this->headline . '">';
             }
         });
         $grid->column('category.name', __('Category'))->sortable();
