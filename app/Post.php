@@ -22,6 +22,7 @@ class Post extends Model
         'slug',
         'upload_url',
         'category_id',
+        'media_type',
         'thumb_url',
         'tags',
     ];

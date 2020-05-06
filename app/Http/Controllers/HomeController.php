@@ -8,6 +8,7 @@ use App\Post;
 use Cache;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -47,6 +48,7 @@ class HomeController extends Controller
         $data['posts_today'] = $posts_today;
         $data['posts_other'] = $posts_other;
         $data['posts'] = $posts;
+        $data['media_url'] = 'https://' . config('filesystems.disks.azure.name') . '.blob.core.windows.net/' . config('filesystems.disks.azure.container') . '/';
 
         return $data;
     }

@@ -5,25 +5,25 @@
         <span class="date-badge ml-auto">{{$post->created_at->diffForHumans()}}</span>
     </div>
     @auth
-    <a href="{{ asset('uploads').$post->upload_url }}" class="posthome" data-toggle="lightbox"> 
+    <a href="{{ $media_url.$post->upload_url }}" class="posthome" data-toggle="lightbox"> 
         @if($post->media_type == 'video')
             <video  controls>
-                <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
+                <source src="{{ $media_url.$post->upload_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         @else    
-            <img class="card-img-top posthome" src="{{ asset('uploads').$post->upload_url }}" alt="{{$post->headline}}">
+            <img class="card-img-top posthome" src="{{ $media_url.$post->upload_url }}" alt="{{$post->headline}}">
         @endif
     </a>
     @else
     <a href="{{ asset('login') }}" class="posthome" title="You need to login to play/download media."> 
         @if($post->media_type == 'video')
             <video >
-                <source src="{{ asset('uploads').$post->upload_url }}" type="video/mp4">
+                <source src="{{ $media_url.$post->upload_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         @else    
-            <img class="card-img-top posthome" src="{{ asset('uploads').$post->upload_url }}" alt="{{$post->headline}}">
+            <img class="card-img-top posthome" src="{{ $media_url.$post->upload_url }}" alt="{{$post->headline}}">
         @endif
     </a>
     @endif
@@ -33,7 +33,7 @@
     </div>
     <div class="card-footer">
         @auth
-        <a href="{{ asset('uploads').$post->upload_url }}" onclick="downloadPost({{ $post->id }})" download class="btn btn-secondary btn-sm">Download Media</a>
+        <a href="{{ $media_url.$post->upload_url }}" onclick="downloadPost({{ $post->id }})" download class="btn btn-secondary btn-sm">Download Media</a>
         @else
         <a href="{{ route('login') }}" title="You need to login to download media." class="btn btn-secondary btn-sm">Download Media</a>
         @endauth
