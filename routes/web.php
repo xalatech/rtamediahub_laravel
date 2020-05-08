@@ -40,3 +40,6 @@ Route::group(['middleware' => 'role:manager'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('phpinfo', function(){
+	phpinfo();
+});
