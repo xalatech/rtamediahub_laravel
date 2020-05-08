@@ -78,14 +78,7 @@ class PostController extends Controller
                 $folder = '/videos';
                 $destinationPath = public_path('/uploads/videos');
                 $file->move($destinationPath, $name);
-
-                $ffmpeg = FFMpeg::create(array(
-                    'ffmpeg.binaries'  => public_path('/ffmpeg/ffmpeg'),
-                    'ffprobe.binaries' => public_path('/ffmpeg/ffprobe'),
-                    'timeout'          => 3600, // The timeout for the underlying process
-                    'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
-                ));
-                
+  
                 $output = "Original size: ".$file->getSize();
 
                 $video = $ffmpeg->open($destinationPath . $name);
