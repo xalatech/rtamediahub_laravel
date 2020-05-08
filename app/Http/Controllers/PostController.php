@@ -9,6 +9,9 @@ use App\Category;
 use App\Notifications\NewMediaUploaded;
 use Illuminate\Support\Str;
 use App\Services\Slug;
+use FFMpeg\FFMpeg;
+use FFMpeg\FFMpeg\Coordinate;
+use FFMpeg\Format\Video\X264;
 use Intervention\Image\Facades\Image as Image;
 use Pawlox\VideoThumbnail\Facade\VideoThumbnail;
 use Illuminate\Support\Carbon;
@@ -73,7 +76,14 @@ class PostController extends Controller
                 $output =  $this->createNewPost($request, $upload_url, $media_type);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $folder = '/videos';
-                $upload_url = $disk->put($folder, $file);
+                $destinationPath = public_path('/uploads/videos');
+                $file->move($destinationPath, $name);
+
+                $ffmpeg = FFMpeg::create();
+                $video = $ffmpeg->open($destinationPath . $name);
+                $video->save(new X264, $destinationPath . $name);
+
+                $upload_url = $disk->put($folder, $video);
                 $media_type = 'video';
                 $output = $this->createNewPost($request, $upload_url, $media_type);
             }
