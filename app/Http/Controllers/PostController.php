@@ -85,20 +85,29 @@ class PostController extends Controller
                     'timeout'          => 3600, // The timeout for the underlying process
                     'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
                 ));
-  
+                
+                $output = "Original size: ".$file->getSize();
+
                 $video = $ffmpeg->open($destinationPath . $name);
-                $video->save(new X264, $destinationPath . $name);
+                $format = new X264();
+                $format->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+
+                $video->save($format, $destinationPath . $name);
+
+                $output .= "Compressed size: ".$video->getSize();
 
                 $upload_url = $disk->put($folder, $video);
+
+
                 $media_type = 'video';
-                $output = $this->createNewPost($request, $upload_url, $media_type);
+                $output = $this->createNewPost($request, $upload_url, $media_type, $output);
             }
         }
 
         return response()->json($output);
     }
 
-    public function createNewPost(Request $request, $upload_url, $media_type)
+    public function createNewPost(Request $request, $upload_url, $media_type, $output)
     {
         $slug = $this->slug->createSlug($request->get('headline'));
 
@@ -117,7 +126,7 @@ class PostController extends Controller
         $post->save();
 
         $output = array(
-            'success' => 'Media uploaded successfully',
+            'success' => 'Media uploaded successfully: '.$output,
         );
 
         return $output;
