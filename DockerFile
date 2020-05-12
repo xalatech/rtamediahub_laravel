@@ -2,13 +2,13 @@ FROM php:7.3
 RUN apt-get update -y && apt-get install -y openssl zip unzip git ffmpeg
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN docker-php-ext-install pdo
-RUN docker-php-ext-install mysql
 
 WORKDIR /app
 COPY . /app
 RUN composer install
 
 COPY php.ini /etc/
+ADD php.ini /usr/local/etc/php
 
 CMD php artisan migrate
 CMD php artisan serve --host=0.0.0.0 --port=8080
