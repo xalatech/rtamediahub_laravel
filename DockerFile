@@ -11,21 +11,13 @@ WORKDIR /var/www
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libpng-dev \
-    zlib1g-dev \
-    libxml2-dev \
-    libzip-dev \
-    libonig-dev \
+    openssl \
+    zip \
+    unzip \
+    git \
     ffmpeg \
-    graphviz \
-    && docker-php-ext-configure gd \
-    && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install zip \
     && docker-php-source delete
 
 # Install composer
@@ -44,6 +36,7 @@ COPY --chown=${APP_USER}:${APP_USER} ./ /var/www
 RUN composer install
 #RUN php artisan migrate
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
+CMD php artisan serve --host=0.0.0.0 --port=8080
+
+EXPOSE 8080
 CMD ["php-fpm"]
