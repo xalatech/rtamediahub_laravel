@@ -61,7 +61,7 @@ class PostController extends Controller
     {
         $upload_url = 'default.png';
         $media_type = 'image';
-        $disk = Storage::disk('azure');
+        $disk = Storage::disk('local');
         $output = "";
 
         if ($request->hasFile('upload_url')) {
@@ -73,24 +73,19 @@ class PostController extends Controller
                 $folder = '/images';
                 $upload_url = $disk->put($folder, $file);
                 $media_type = 'image';
-                $output =  $this->createNewPost($request, $upload_url, $media_type);
+                $output =  $this->createNewPost($request, $upload_url, $media_type, $output);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                 $folder = '/videos';
-                $destinationPath = public_path('/uploads/videos');
+                $destinationPath = public_path('/uploads/videos/');
                 $file->move($destinationPath, $name);
-  
-                $output = "Original size: ".$file->getSize();
 
+                $ffmpeg = FFMpeg::create();
                 $video = $ffmpeg->open($destinationPath . $name);
-                $format = new X264();
-                $format->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+                $format = new X264('libmp3lame', 'libx264');
+                // $format->setKiloBitrate(300);
+                $video->save($format, $destinationPath . "converted/" . $name);
 
-                $video->save($format, $destinationPath . $name);
-
-                $output .= "Compressed size: ".$video->getSize();
-
-                $upload_url = $disk->put($folder, $video);
-
+                // $upload_url = $disk->put($folder, $video);
 
                 $media_type = 'video';
                 $output = $this->createNewPost($request, $upload_url, $media_type, $output);
@@ -119,7 +114,7 @@ class PostController extends Controller
         $post->save();
 
         $output = array(
-            'success' => 'Media uploaded successfully: '.$output,
+            'success' => 'Media uploaded successfully: ' . $output,
         );
 
         return $output;
