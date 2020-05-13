@@ -27,6 +27,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 # Copy existing application directory contents
 COPY . /var/www
 
+COPY php.ini /usr/local/etc/php/conf.d
+
 # Copy existing application directory permissions
 COPY --chown=${APP_USER}:${APP_USER} ./ /var/www
 
