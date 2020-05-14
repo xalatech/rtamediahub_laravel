@@ -79,7 +79,13 @@ class PostController extends Controller
                 $destinationPath = public_path('/uploads/videos/');
                 $file->move($destinationPath, $name);
 
-                $ffmpeg = FFMpeg::create();
+                $ffmpeg = FFMpeg::create(array(
+                    'ffmpeg.binaries'  => '/bin/ffmpeg',
+                    'ffprobe.binaries' => '/bin/ffprobe',
+                    'timeout'          => 3600, // The timeout for the underlying process
+                    'ffmpeg.threads'   => 12   // The number of threads that FFMpeg should use
+                ));
+
                 $video = $ffmpeg->open($destinationPath . $name);
                 $format = new X264('libmp3lame', 'libx264');
                 // $format->setKiloBitrate(300);
