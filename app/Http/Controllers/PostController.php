@@ -89,7 +89,7 @@ class PostController extends Controller
                 $video = $ffmpeg->open($destinationPath . $name);
                 $format = new X264('libmp3lame', 'libx264');
                 // $format->setKiloBitrate(300);
-                $video->save($format, $destinationPath . "converted/" . $name);
+                $video->save($format, $destinationPath . "converted_" . $name);
 
                 // $upload_url = $disk->put($folder, $video);
 
