@@ -1,7 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    # Remove public folder form URL
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://rtamediahub.com/$1 [R,L]
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>

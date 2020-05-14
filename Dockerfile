@@ -38,7 +38,5 @@ COPY --chown=${APP_USER}:${APP_USER} ./ /var/www
 RUN composer install
 #RUN php artisan migrate
 
-CMD php artisan serve --host=0.0.0.0 --port=8080
-
-EXPOSE 8080
+EXPOSE 80
 CMD ["php-fpm"]

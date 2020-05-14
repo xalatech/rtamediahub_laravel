@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Post;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,10 @@ Route::group(['middleware' => 'role:manager'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('phpinfo', function(){
-	phpinfo();
+Route::get('phpinfo', function () {
+    phpinfo();
 });
+
+if (env('APP_ENV') === 'production') {
+    URL::forceSchema('https');
+}
