@@ -80,8 +80,8 @@ class PostController extends Controller
                 $file->move($destinationPath, $name);
 
                 $ffmpeg = FFMpeg::create(array(
-                    'ffmpeg.binaries'  => 'd:\home\site\public\bin\ffmpeg.exe',
-                    'ffprobe.binaries' => 'd:\home\site\public\bin\ffprobe.exe',
+                    'ffmpeg.binaries'  => 'd:\home\site\public\bin\ffmpeg',
+                    'ffprobe.binaries' => 'd:\home\site\public\bin\ffprobe',
                     'timeout'          => 3600, // The timeout for the underlying process
                     'ffmpeg.threads'   => 12   // The number of threads that FFMpeg should use
                 ));
