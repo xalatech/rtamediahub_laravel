@@ -19,6 +19,7 @@ use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use Illuminate\Support\Facades\Storage;
 use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -89,7 +90,9 @@ class PostController extends Controller
                 $video = $ffmpeg->open($destinationPath . $name);
                 $format = new X264('libmp3lame', 'libx264');
                 // $format->setKiloBitrate(300);
-                $video->save($format, $destinationPath . "converted_" . $name);
+                $video->save($format, $destinationPath . "video_" . $name);
+                File::delete($destinationPath, $name);
+                $upload_url = "video_" . $name;
 
                 // $upload_url = $disk->put($folder, $video);
 
