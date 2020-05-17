@@ -71,8 +71,11 @@ class PostController extends Controller
             $upload_url = $name;
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
-                $folder = '/images';
-                $upload_url = $disk->put($folder, $file);
+                $destinationPath = public_path('/uploads/images/');
+
+                $file->move($destinationPath, $name);
+                $upload_url = $destinationPath . $name;
+
                 $media_type = 'image';
                 $output =  $this->createNewPost($request, $upload_url, $media_type, $output);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
@@ -92,7 +95,7 @@ class PostController extends Controller
                 // $format->setKiloBitrate(300);
                 $video->save($format, $destinationPath . "video_" . $name);
                 File::delete($destinationPath, $name);
-                $upload_url = "video_" . $name;
+                $upload_url = $destinationPath . "video_" . $name;
 
                 // $upload_url = $disk->put($folder, $video);
 
