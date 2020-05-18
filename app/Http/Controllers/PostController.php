@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Category;
+use App\Jobs\ConvertVideoForStreaming;
 use App\Notifications\NewMediaUploaded;
 use Illuminate\Support\Str;
 use App\Services\Slug;
+use App\Video;
 use FFMpeg\FFMpeg;
 use FFMpeg\FFMpeg\Coordinate;
 use FFMpeg\Format\Video\X264;
@@ -84,18 +86,15 @@ class PostController extends Controller
                 $destinationPath = public_path('/uploads/videos/');
                 $file->move($destinationPath, $name);
 
-                $ffmpeg = FFMpeg::create(array(
-                    'ffmpeg.binaries'  => 'd:\home\site\public\bin\ffmpeg.exe',
-                    'ffprobe.binaries' => 'd:\home\site\public\bin\ffprobe.exe',
-                    'timeout'          => 3600, // The timeout for the underlying process
-                    'ffmpeg.threads'   => 12   // The number of threads that FFMpeg should use
-                ));
+                $video = Video::create([
+                    'disk'          => 'public',
+                    'original_name' => $request->video->getClientOriginalName(),
+                    'path'          => $destinationPath, $name,
+                    'title'         => $request->headline,
+                ]);
 
-                $video = $ffmpeg->open($destinationPath . $name);
-                $format = new X264('libmp3lame', 'libx264');
-                // $format->setKiloBitrate(300);
-                $video->save($format, $destinationPath . "video_" . $name);
-                File::delete($destinationPath, $name);
+                ConvertVideoForStreaming::dispatch($video);
+
                 $upload_url = $folder . "video_" . $name;
 
                 // $upload_url = $disk->put($folder, $video);

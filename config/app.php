@@ -177,7 +177,8 @@ return [
         App\Providers\PermissionsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Pawlox\VideoThumbnail\VideoThumbnailServiceProvider::class,
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        AzureQueueLaravel\AzureQueueServiceProvider::class,
     ],
 
     /*
