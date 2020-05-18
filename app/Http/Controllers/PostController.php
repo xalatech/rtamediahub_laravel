@@ -88,7 +88,7 @@ class PostController extends Controller
 
                 $video = Video::create([
                     'disk'          => 'public',
-                    'original_name' => $request->video->getClientOriginalName(),
+                    'original_name' => $name,
                     'path'          => $destinationPath, $name,
                     'title'         => $request->headline,
                 ]);
