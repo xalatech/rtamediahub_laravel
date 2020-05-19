@@ -49,14 +49,15 @@ class ConvertVideoForStreaming implements ShouldQueue
             'ffmpeg.threads'   => 12   // The number of threads that FFMpeg should use
         ));
 
-        //$disk = Storage::disk('azure');
+        $disk = Storage::disk('azure');
 
         $video = $ffmpeg->open($this->video->path . $converted_name);
         $video->save($lowBitrateFormat, $this->video->path . 'video_' . $converted_name);
 
         $folder = 'videos';
-        // $disk->put($folder, $video);
+        $disk->put($folder, $this->video->path . 'video_' . $converted_name);
 
+        File::delete($this->video->path . 'video_' . $converted_name);
         File::delete($this->video->path . $converted_name);
     }
 

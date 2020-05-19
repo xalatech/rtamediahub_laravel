@@ -60,8 +60,8 @@ class PostController extends Controller
             $upload_url = $name;
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
-                $destinationPath = '/media/';
-                $folder = '';
+                $destinationPath = public_path('/uploads/images/');
+                $folder = 'images/';
 
                 $file->move($destinationPath, $name);
                 $upload_url = $folder . $name;
@@ -69,8 +69,8 @@ class PostController extends Controller
                 $media_type = 'image';
                 $output =  $this->createNewPost($request, $upload_url, $media_type, $output);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
-                $folder = '';
-                $destinationPath = '/media/';
+                $folder = 'videos/';
+                $destinationPath = public_path('/uploads/videos/');
                 $file->move($destinationPath, $name);
 
                 $video = Video::create([
