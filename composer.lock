@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c452803a87fdb6a541d75bf84f5a4978",
+    "content-hash": "e931c741871dd1410ded0f4f133b06b4",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -7267,7 +7267,7 @@
     "stability-flags": {
         "matthewbdaly/laravel-azure-storage": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2.5"

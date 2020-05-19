@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "matthewbdaly/laravel-azure-storage": "dev-master",
+        "microsoft/azure-storage-blob": "^1.5",
         "pawlox/video-thumbnail": "^1.0",
         "php-ffmpeg/php-ffmpeg": "^0.16.0"
     },
@@ -48,8 +49,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "AzureQueueLaravel\\": "packages/azure-queue-laravel/src/"
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",
@@ -62,7 +62,7 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": false,
+    "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

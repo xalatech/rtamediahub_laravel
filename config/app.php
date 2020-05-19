@@ -178,7 +178,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Pawlox\VideoThumbnail\VideoThumbnailServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-        AzureQueueLaravel\AzureQueueServiceProvider::class,
+        Matthewbdaly\LaravelAzureStorage\AzureStorageServiceProvider::class,
+
     ],
 
     /*

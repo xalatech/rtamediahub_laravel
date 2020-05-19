@@ -13,7 +13,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\File;
+use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use Illuminate\Support\Facades\Storage;
+use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
