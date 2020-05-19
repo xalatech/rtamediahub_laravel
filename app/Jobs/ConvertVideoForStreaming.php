@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
@@ -48,8 +49,13 @@ class ConvertVideoForStreaming implements ShouldQueue
             'ffmpeg.threads'   => 12   // The number of threads that FFMpeg should use
         ));
 
+        //$disk = Storage::disk('azure');
+
         $video = $ffmpeg->open($this->video->path . $converted_name);
         $video->save($lowBitrateFormat, $this->video->path . 'video_' . $converted_name);
+
+        $folder = 'videos';
+        // $disk->put($folder, $video);
 
         File::delete($this->video->path . $converted_name);
     }

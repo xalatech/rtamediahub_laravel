@@ -4,24 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-use App\User;
 use App\Category;
 use App\Jobs\ConvertVideoForStreaming;
-use App\Notifications\NewMediaUploaded;
-use Illuminate\Support\Str;
 use App\Services\Slug;
 use App\Video;
-use FFMpeg\FFMpeg;
-use FFMpeg\FFMpeg\Coordinate;
-use FFMpeg\Format\Video\X264;
-use Intervention\Image\Facades\Image as Image;
-use Pawlox\VideoThumbnail\Facade\VideoThumbnail;
 use Illuminate\Support\Carbon;
-use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
-use Illuminate\Support\Facades\Storage;
-use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
-use MicrosoftAzure\Storage\Blob\BlobRestProxy;
-use Illuminate\Support\Facades\File;
+
 
 class PostController extends Controller
 {
@@ -64,7 +52,6 @@ class PostController extends Controller
     {
         $upload_url = 'default.png';
         $media_type = 'image';
-        $disk = Storage::disk('local');
         $output = "";
 
         if ($request->hasFile('upload_url')) {
@@ -73,8 +60,8 @@ class PostController extends Controller
             $upload_url = $name;
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
-                $destinationPath = public_path('/uploads/images/');
-                $folder = 'images/';
+                $destinationPath = '/media/';
+                $folder = '';
 
                 $file->move($destinationPath, $name);
                 $upload_url = $folder . $name;
@@ -82,8 +69,8 @@ class PostController extends Controller
                 $media_type = 'image';
                 $output =  $this->createNewPost($request, $upload_url, $media_type, $output);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
-                $folder = 'videos/';
-                $destinationPath = public_path('/uploads/videos/');
+                $folder = '';
+                $destinationPath = '/media/';
                 $file->move($destinationPath, $name);
 
                 $video = Video::create([
