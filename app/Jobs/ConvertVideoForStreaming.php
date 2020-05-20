@@ -49,15 +49,10 @@ class ConvertVideoForStreaming implements ShouldQueue
 
         $disk = Storage::disk('azure');
 
-        $video = $ffmpeg->open($this->video->path . $converted_name);
-        $video->save($lowBitrateFormat, $this->video->path . 'video_' . $converted_name);
-
         $folder = 'videos/';
-        $file = Storage::disk('local')->get($this->video->path . 'video_' . $converted_name);
-        $disk->put($folder, $file);
 
-        File::delete($this->video->path . 'video_' . $converted_name);
-        File::delete($this->video->path . $converted_name);
+        $video = $ffmpeg->open($disk->get($this->video->path . $converted_name));
+        $video->save($lowBitrateFormat, $disk->put($folder, $this->video->path . 'video_' . $converted_name));
     }
 
     private function getCleanFileName($filename)
