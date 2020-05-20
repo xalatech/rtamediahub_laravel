@@ -75,7 +75,7 @@ class PostController extends Controller
                 } else if (substr($file->getMimeType(), 0, 5) == 'video') {
                     $folder = 'videos/';
                     $destinationPath = public_path('/uploads/videos/');
-                    $disk->put($folder, $file);
+                    $file->move($destinationPath, $name);
 
                     $video = Video::create([
                         'disk'          => 'azure',
