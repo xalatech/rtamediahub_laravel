@@ -60,7 +60,7 @@ class PostController extends Controller
 
         if ($request->hasFile('upload_url')) {
             foreach ($request->file('upload_url') as $file) {
-                $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+                $name = $file->getClientOriginalName();
                 $upload_url = $name;
 
                 if (substr($file->getMimeType(), 0, 5) == 'image') {
@@ -81,7 +81,7 @@ class PostController extends Controller
                         'disk'          => 'public',
                         'original_name' => $name,
                         'path'          => $destinationPath, $name,
-                        'title'         => $request->headline,
+                        'title'         => $this->getCleanFileName($name)
                     ]);
 
                     ConvertVideoForStreaming::dispatch($video);
@@ -105,10 +105,11 @@ class PostController extends Controller
 
     public function createNewPostUpload(Request $request, $file, $upload_url, $media_type)
     {
+        $name = $file->getClientOriginalName();
         $slug = $this->slug->createSlug($file->getClientOriginalName());
 
         $post = new Post([
-            'headline' => $file->getClientOriginalName(),
+            'headline' =>  $this->getCleanFileName($name),
             'description' => "multiple upload",
             'category_id' => $request->get('category_id'),
             'tags' => '',
@@ -122,6 +123,11 @@ class PostController extends Controller
         $post->save();
     }
 
+
+    private function getCleanFileName($filename)
+    {
+        return preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename);
+    }
 
     /**
      * Store a newly created resource in storage.
