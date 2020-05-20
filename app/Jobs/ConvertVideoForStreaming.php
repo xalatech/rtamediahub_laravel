@@ -4,8 +4,6 @@ namespace App\Jobs;
 
 use FFMpeg\FFMpeg;
 use App\Video;
-use Carbon\Carbon;
-use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -13,10 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\File;
-use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use Illuminate\Support\Facades\Storage;
-use Matthewbdaly\LaravelAzureStorage\AzureBlobStorageAdapter;
-use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
@@ -57,10 +52,10 @@ class ConvertVideoForStreaming implements ShouldQueue
         $video = $ffmpeg->open($this->video->path . $converted_name);
         $video->save($lowBitrateFormat, $this->video->path . 'video_' . $converted_name);
 
-        $folder = 'videos';
+        $folder = 'videos/';
         $disk->put($folder, $video);
 
-        File::delete($this->video->path . 'video_' . $converted_name);
+        // File::delete($this->video->path . 'video_' . $converted_name);
         File::delete($this->video->path . $converted_name);
     }
 
