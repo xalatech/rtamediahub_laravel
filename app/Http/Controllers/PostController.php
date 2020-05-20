@@ -66,9 +66,7 @@ class PostController extends Controller
                 if (substr($file->getMimeType(), 0, 5) == 'image') {
                     $destinationPath = public_path('/uploads/images/');
                     $folder = 'images/';
-
-                    $disk->put($destinationPath, $name);
-
+                    $disk->put($folder, $file);
                     $upload_url = $folder . $name;
 
                     $media_type = 'image';

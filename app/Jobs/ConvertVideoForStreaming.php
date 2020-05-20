@@ -58,7 +58,7 @@ class ConvertVideoForStreaming implements ShouldQueue
         $video->save($lowBitrateFormat, $this->video->path . 'video_' . $converted_name);
 
         $folder = 'videos';
-        $disk->put($folder, $this->video->path . 'video_' . $converted_name);
+        $disk->put($folder, $video);
 
         File::delete($this->video->path . 'video_' . $converted_name);
         File::delete($this->video->path . $converted_name);
