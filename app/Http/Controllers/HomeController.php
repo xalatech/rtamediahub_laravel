@@ -48,8 +48,8 @@ class HomeController extends Controller
         $data['posts_today'] = $posts_today;
         $data['posts_other'] = $posts_other;
         $data['posts'] = $posts;
-        //$data['media_url'] = 'https://' . config('filesystems.disks.azure.name') . '.blob.core.windows.net/' . config('filesystems.disks.azure.container') . '/';
-        $data['media_url'] = asset('uploads');
+        $data['media_url'] = 'https://' . config('filesystems.disks.azure.name') . '.blob.core.windows.net/' . config('filesystems.disks.azure.container') . '/';
+        //$data['media_url'] = asset('uploads');
 
         return $data;
     }

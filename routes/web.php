@@ -18,7 +18,9 @@ Route::get('/', 'HomeController@index');
 
 Route::resource('categories', 'CategoryController');
 Route::get('add_post', 'PostController@create')->name('add_post')->middleware('auth');
+Route::get('upload', 'PostController@uploadMedia')->name('upload')->middleware('auth');
 Route::post('submit_post', 'PostController@store')->name('submit_post')->middleware('auth');
+Route::post('upload_media', 'PostController@upload')->name('upload_media')->middleware('auth');
 Route::post('search', 'PostController@search')->name('search');
 Route::post('download_post', 'PostController@download')->name('download_post')->middleware('auth');
 Route::get('post_list', 'PostController@search')->name('post_list');

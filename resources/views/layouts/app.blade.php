@@ -85,7 +85,7 @@
                          <i class="fa fa-search"></i>
                         </span>
                         </form>
-                        <a class="btn col-md-4 new-media" href="{{ route('add_post') }}">
+                        <a class="btn col-md-4 new-media" href="{{ route('upload') }}">
                           <i class="fa fa-images mr-2"></i>
                           UPLOAD MEDIA
                         </a>

@@ -9,6 +9,7 @@ use App\Jobs\ConvertVideoForStreaming;
 use App\Services\Slug;
 use App\Video;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -41,6 +42,88 @@ class PostController extends Controller
 
         return view('post', $data);
     }
+
+    public function uploadMedia()
+    {
+        $categories = Category::all();
+        $data['categories'] = $categories;
+
+        return view('upload', $data);
+    }
+
+    public function upload(Request $request)
+    {
+        $upload_url = 'default.png';
+        $media_type = 'image';
+        $output = "";
+        $disk = Storage::disk('azure');
+
+        if ($request->hasFile('upload_url')) {
+            foreach ($request->file('upload_url') as $file) {
+                $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+                $upload_url = $name;
+
+                if (substr($file->getMimeType(), 0, 5) == 'image') {
+                    $destinationPath = public_path('/uploads/images/');
+                    $folder = 'images/';
+
+                    $disk->put($destinationPath, $name);
+
+                    $upload_url = $folder . $name;
+
+                    $media_type = 'image';
+
+                    $output =  $this->createNewPostUpload($request, $file, $upload_url, $media_type);
+                } else if (substr($file->getMimeType(), 0, 5) == 'video') {
+                    $folder = 'videos/';
+                    $destinationPath = public_path('/uploads/videos/');
+                    $file->move($destinationPath, $name);
+
+                    $video = Video::create([
+                        'disk'          => 'public',
+                        'original_name' => $name,
+                        'path'          => $destinationPath, $name,
+                        'title'         => $request->headline,
+                    ]);
+
+                    ConvertVideoForStreaming::dispatch($video);
+
+                    $upload_url = $folder . "video_" . $name;
+
+                    // $upload_url = $disk->put($folder, $video);
+
+                    $media_type = 'video';
+                    $output =  $this->createNewPostUpload($request, $file, $upload_url, $media_type);
+                }
+            }
+
+            $output = array(
+                'success' => 'Media uploaded successfully'
+            );
+        }
+
+        return response()->json($output);
+    }
+
+    public function createNewPostUpload(Request $request, $file, $upload_url, $media_type)
+    {
+        $slug = $this->slug->createSlug($file->getClientOriginalName());
+
+        $post = new Post([
+            'headline' => $file->getClientOriginalName(),
+            'description' => "multiple upload",
+            'category_id' => $request->get('category_id'),
+            'tags' => '',
+            'slug' => $slug,
+            'upload_url' => $upload_url,
+            'thumb_url' => $upload_url,
+            'media_type' => $media_type,
+            'published' => false
+        ]);
+
+        $post->save();
+    }
+
 
     /**
      * Store a newly created resource in storage.
