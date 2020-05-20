@@ -39,7 +39,7 @@
                         <div class="form-group row">
                             <label for="upload_url" class="col-sm-2 col-form-label">Media</label>
                             <div class="col-sm-10">
-                                <input name="upload_url[]" type="file" id="upload_url" >
+                                <input name="upload_url[]" multiple type="file" id="upload_url" >
                             </div>
                         </div>
 
