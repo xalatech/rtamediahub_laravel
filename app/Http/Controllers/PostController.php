@@ -84,7 +84,7 @@ class PostController extends Controller
                         'title'         => $this->getCleanFileName($name)
                     ]);
 
-                    ConvertVideoForStreaming::dispatch($video);
+                    // ConvertVideoForStreaming::dispatch($video);
 
                     $upload_url = $folder . "video_" . $name;
 
