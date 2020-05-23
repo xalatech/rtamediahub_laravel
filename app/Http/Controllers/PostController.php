@@ -56,7 +56,6 @@ class PostController extends Controller
         $upload_url = 'default.png';
         $media_type = 'image';
         $output = "";
-        $disk = Storage::disk('azure');
 
         if ($request->hasFile('upload_url')) {
             foreach ($request->file('upload_url') as $file) {
@@ -65,18 +64,18 @@ class PostController extends Controller
 
                 if (substr($file->getMimeType(), 0, 5) == 'image') {
                     $destinationPath = public_path('/uploads/images/');
-                    $folder = 'images/';
-                    $disk->put($folder, $file);
-                    $upload_url = $folder . $name;
+                    $folder = '/';
+                    $disk = Storage::disk('azure_images');
+                    $upload_url = $disk->put($folder, $file);
 
                     $media_type = 'image';
 
                     $output =  $this->createNewPostUpload($request, $file, $upload_url, $media_type);
                 } else if (substr($file->getMimeType(), 0, 5) == 'video') {
-                    $folder = 'videos/';
+                    $folder = '/';
                     $destinationPath = public_path('/uploads/videos/');
-                    $file->move($destinationPath, $name);
-
+                    //$disk->put($folder, $file);
+                    /* 
                     $video = Video::create([
                         'disk'          => 'azure',
                         'original_name' => $name,
@@ -84,11 +83,10 @@ class PostController extends Controller
                         'title'         => $this->getCleanFileName($name)
                     ]);
 
-                    // ConvertVideoForStreaming::dispatch($video);
+ */                    // ConvertVideoForStreaming::dispatch($video);
 
-                    $upload_url = $folder . "video_" . $name;
-
-                    // $upload_url = $disk->put($folder, $video);
+                    $disk = Storage::disk('azure_videos');
+                    $upload_url = $disk->put($folder, $file);
 
                     $media_type = 'video';
                     $output =  $this->createNewPostUpload($request, $file, $upload_url, $media_type);

@@ -69,11 +69,20 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'endpoint' => env('AWS_URL'),
         ],
-        'azure' => [
+        'azure_images' => [
             'driver'    => 'azure',
             'name'      => env('AZURE_STORAGE_NAME'),
             'key'       => env('AZURE_STORAGE_KEY'),
-            'container' => env('AZURE_STORAGE_CONTAINER'),
+            'container' => env('AZURE_STORAGE_CONTAINER_IMAGES'),
+            'url'       => env('AZURE_STORAGE_URL'),
+            'prefix'    => null,
+        ],
+
+        'azure_videos' => [
+            'driver'    => 'azure',
+            'name'      => env('AZURE_STORAGE_NAME'),
+            'key'       => env('AZURE_STORAGE_KEY'),
+            'container' => env('AZURE_STORAGE_CONTAINER_VIDEOS'),
             'url'       => env('AZURE_STORAGE_URL'),
             'prefix'    => null,
         ],
