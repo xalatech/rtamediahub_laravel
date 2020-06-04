@@ -48,7 +48,7 @@ class HomeController extends Controller
         $data['posts_today'] = $posts_today;
         $data['posts_other'] = $posts_other;
         $data['posts'] = $posts;
-        $data['media_url'] = 'https://' . config('filesystems.disks.azure.name') . '.blob.core.windows.net/media/';
+        $data['media_url'] = 'https://rtamediahub.blob.core.windows.net/media/';
         $data['media_url_images'] = 'https://' . config('filesystems.disks.azure.name') . '.blob.core.windows.net/images/';
         //$data['media_url'] = asset('uploads');
 
