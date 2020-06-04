@@ -138,6 +138,7 @@ class PostController extends Controller
         $upload_url = 'default.png';
         $media_type = 'image';
         $output = "";
+        $disk = Storage::disk('azure');
 
         if ($request->hasFile('upload_url')) {
             $file = $request->file('upload_url');
@@ -146,15 +147,16 @@ class PostController extends Controller
 
             if (substr($file->getMimeType(), 0, 5) == 'image') {
                 $destinationPath = public_path('/uploads/images/');
-                $folder = 'images/';
+                $folder = 'images';
 
-                $file->move($destinationPath, $name);
-                $upload_url = $folder . $name;
+                // $file->move($destinationPath, $name);
+                // $upload_url = $folder . $name;
+                $upload_url = $disk->put($folder, $name);
 
                 $media_type = 'image';
                 $output =  $this->createNewPost($request, $upload_url, $media_type, $output);
             } else if (substr($file->getMimeType(), 0, 5) == 'video') {
-                $folder = 'videos/';
+                $folder = 'videos';
                 $destinationPath = public_path('/uploads/videos/');
                 $file->move($destinationPath, $name);
 
@@ -165,11 +167,10 @@ class PostController extends Controller
                     'title'         => $request->headline,
                 ]);
 
-                ConvertVideoForStreaming::dispatch($video);
+                //ConvertVideoForStreaming::dispatch($video);
+                //$upload_url = $folder . "video_" . $name;
 
-                $upload_url = $folder . "video_" . $name;
-
-                // $upload_url = $disk->put($folder, $video);
+                $upload_url = $disk->put($folder, $video);
 
                 $media_type = 'video';
                 $output = $this->createNewPost($request, $upload_url, $media_type, $output);
